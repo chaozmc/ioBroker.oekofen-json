@@ -1,0 +1,79 @@
+{
+	"common": {
+		"name": "oekofen-json",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "OekoFEN JSON",
+		"titleLang": {
+			"en": "OekoFEN JSON",
+			"de": "ÖkoFEN JSON",
+			"ru": "ЭкоФЕН JSON",
+			"pt": "OekoFEN JSON",
+			"nl": "OekoFEN JSON",
+			"fr": "OekoFEN JSON",
+			"it": "OekoFEN JSON",
+			"es": "OekoFEN JSON",
+			"pl": "OekoFEN JSON",
+			"zh-cn": "OekoFEN JSON"
+		},
+		"desc": {
+			"en": "Connect OekoFEN Pellematic via JSON to ioBroker",
+			"de": "Verbinden Sie OekoFEN Pellematic über JSON mit ioBroker",
+			"ru": "Подключите OekoFEN Pellematic через JSON к ioBroker",
+			"pt": "Conecte o OekoFEN Pellematic via JSON ao ioBroker",
+			"nl": "Verbind OekoFEN Pellematic via JSON met ioBroker",
+			"fr": "Connectez OekoFEN Pellematic via JSON à ioBroker",
+			"it": "Collega OekoFEN Pellematic tramite JSON a ioBroker",
+			"es": "Conecte OekoFEN Pellematic a través de JSON a ioBroker",
+			"pl": "Połącz OekoFEN Pellematic przez JSON z ioBroker",
+			"zh-cn": "通过 JSON 将 OekoFEN Pellematic 连接到 ioBroker"
+		},
+		"authors": [
+			"chaozmc <chaozmc@is-jo.org>"
+		],
+		"keywords": [
+			"oekofen",
+			"pellematic"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "oekofen-json.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/chaozmc/ioBroker.oekofen-json/main/admin/oekofen-json.png",
+		"readme": "https://github.com/chaozmc/ioBroker.oekofen-json/blob/main/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "communication",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "poll",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"oekofenIp": "1.2.3.4",
+		"oekofenPort": "8080",
+		"oekofenPassword": "secret",
+		"myRequestInterval" : "30"
+	},
+	"objects": [],
+	"instanceObjects": []
+}
