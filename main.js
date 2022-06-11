@@ -1,7 +1,10 @@
 "use strict";
 
+const { adapter } = require("@iobroker/adapter-core");
 const utils = require("@iobroker/adapter-core");
-const { type } = require("os");
+
+//const { type } = require("os");
+
 const axios = require("axios").default;
 let url = "";
 let updateDataInterval;
@@ -73,12 +76,10 @@ class OekofenJson extends utils.Adapter {
 		///////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////
 
-		//updateDataInterval = setInterval(async () => await this.updateData(url), Number.parseInt(this.config.myRequestInterval)*1000);
 		timeout1 = setTimeout(async() => await this.initialScan(url), 10000);
 		deadManSwitch = setInterval(async() => await this.heartbeat(), Number.parseInt(this.config.myRequestInterval)*2000);
 		//await this.initialScan(url);
 		this.setStateAsync("info.connection", { val: false, ack: true });
-
 
 
 
@@ -121,69 +122,7 @@ class OekofenJson extends utils.Adapter {
 	async initialScan(url) {
 		await axios.get(url + "/all??", { responseEncoding: "latin1" })
 			.then(response => {
-				Object.keys(response.data).forEach(key => {
-					Object.keys(response.data[key]).forEach(innerKey => {
-						let objType;
-						let objStates;
-						if (typeof response.data[key][innerKey].val === "number") {
-							if (response.data[key][innerKey].format === undefined) {
-								objType = "number";
-							} else {
-								objType = "number";
-								const input = response.data[key][innerKey].format;
-								const firstDelimiter = "|";
-								const secondDelimiter = ":";
-								const cleanInput = input.replace(/#./g, "|");
-								const output = cleanInput.split(firstDelimiter).reduce( (newArr, element, i) => {
-									let subArr = element.split(secondDelimiter);
-									newArr[i] = subArr;
-
-									return newArr;
-
-								}, []);
-								objStates = Object.fromEntries(output);
-							}
-						} else if(typeof response.data[key][innerKey].val === "string") {
-							objType = "string";
-						} else if(response.data[key][innerKey].val === undefined) {
-							objType = "string";
-						} else {
-							objType = "mixed";
-						}
-
-						this.log.info(innerKey + ": " + objType);
-						this.setObjectNotExistsAsync(key + "." + innerKey, {
-							type: "state",
-							common: {
-								name: innerKey,
-								type: objType,
-								role: "state",
-								desc: "TestDescription",
-								read: true,
-								write: (innerKey.startsWith("L_") ? false : true),
-								states: objStates
-							},
-							native: {
-								factor: response.data[key][innerKey].factor //abn
-							}
-						});
-						try {
-							if(response.data[key][innerKey].val === undefined) {
-								this.setStateAsync(key + "." + innerKey, { val: response.data[key][innerKey].toString(), ack: true });
-							} else if (typeof response.data[key][innerKey].val === "number"){
-								this.setStateAsync(key + "." + innerKey, { val: response.data[key][innerKey].val, ack: true });
-							} else if (typeof response.data[key][innerKey].val === "string") {
-								this.setStateAsync(key + "." + innerKey, { val: response.data[key][innerKey].val.toString(), ack: true });
-							}
-
-						} catch (error) {
-							this.log.info("Error : "+ error);
-						}
-
-						//this.log.info(response.data[key][innerKey]);iwas
-						//this.log.info(response.data[key][innerKey]);
-					});
-				});
+				this.parseDataOnStartupAndCreateObjects(response.data);
 				//Set connection to true, if get-request was successful
 				this.setStateAsync("info.connection", { val: true, ack: true });
 			})
@@ -192,6 +131,7 @@ class OekofenJson extends utils.Adapter {
 				//Set connection to false in case of errors
 				this.setStateAsync("info.connection", { val: false, ack: true });
 			});
+		updateDataInterval = setInterval(async () => await this.updateData(url), Number.parseInt(this.config.myRequestInterval)*1000);
 	}
 
 	/**
@@ -199,16 +139,103 @@ class OekofenJson extends utils.Adapter {
 	 */
 	async updateData(url) {
 
-		axios.get(url, { responseEncoding: "latin1" })
+		axios.get(url + "/all", { responseEncoding: "latin1" })
 			.then(response => {
-				this.log.info(response.data.datetime);
-				this.setStateAsync("datum", { val: response.data.datetime, ack: true });
-				this.log.info(response.data.abbreviation);
-				this.setStateAsync("zeitzone", { val: response.data.abbreviation, ack: true });
+				this.parseDataAndSetValues(response.data);
+				//Set connection to true, if get-request was successful
+				this.setStateAsync("info.connection", { val: true, ack: true });
 			})
 			.catch(error => {
 				this.log.error(error);
+				//Set connection to false in case of errors
+				this.setStateAsync("info.connection", { val: false, ack: true });
 			});
+
+	}
+
+	/**
+	 * @param {object} jsonData
+	 */
+	parseDataOnStartupAndCreateObjects(jsonData) {
+		Object.keys(jsonData).forEach(key => {
+			Object.keys(jsonData[key]).forEach(innerKey => {
+				let objType;
+				let objStates;
+				if (typeof jsonData[key][innerKey].val === "number") {
+					if (jsonData[key][innerKey].format === undefined) {
+						objType = "number";
+					} else {
+						objType = "number";
+						const input = jsonData[key][innerKey].format;
+						const firstDelimiter = "|";
+						const secondDelimiter = ":";
+						const cleanInput = input.replace(/#./g, "|");
+						const output = cleanInput.split(firstDelimiter).reduce( (newArr, element, i) => {
+							let subArr = element.split(secondDelimiter);
+							newArr[i] = subArr;
+
+							return newArr;
+
+						}, []);
+						objStates = Object.fromEntries(output);
+					}
+				} else if(typeof jsonData[key][innerKey].val === "string") {
+					objType = "string";
+				} else if(jsonData[key][innerKey].val === undefined) {
+					objType = "string";
+				} else {
+					objType = "mixed";
+				}
+
+
+				this.setObjectNotExists(key + "." + innerKey, {
+					type: "state",
+					common: {
+						name: innerKey,
+						type: objType,
+						role: "state",
+						read: true,
+						write: (innerKey.startsWith("L_") ? false : true),
+						states: objStates,
+						min: jsonData[key][innerKey].min,
+						max: jsonData[key][innerKey].max
+					},
+					native: {
+						factor: jsonData[key][innerKey].factor
+					}
+				});
+			});
+		});
+	}
+
+	/**
+	 * @param {object} jsonData
+	 */
+	parseDataAndSetValues(jsonData) {
+		Object.keys(jsonData).forEach(key => {
+			Object.keys(jsonData[key]).forEach(innerKey => {
+				try {
+
+					this.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey], ack: true});
+
+
+					// if(typeof jsonData[key][innerKey] === "string")
+					// if(jsonData[key][innerKey].val === undefined) {
+					// 	this.setState(key + "." + innerKey, { val: jsonData[key][innerKey].toString(), ack: true });
+					// } else if (typeof jsonData[key][innerKey].val === "number"){
+					// 	this.setState(key + "." + innerKey, { val: jsonData[key][innerKey].val, ack: true });
+					// } else if (typeof jsonData[key][innerKey].val === "string") {
+					// 	this.setState(key + "." + innerKey, { val: jsonData[key][innerKey].val.toString(), ack: true });
+					// }
+
+				} catch (error) {
+					this.log.error("Error in function parseDataAndSetValues: "+ error);
+					this.setState("info.connection", {val: false, ack: true});
+				}
+			});
+
+		});
+
 
 	}
 
