@@ -141,7 +141,7 @@ class OekofenJson extends utils.Adapter {
 
 		axios.get(url + "/all", { responseEncoding: "latin1" })
 			.then(response => {
-				this.parseDataAndSetValues(response.data);
+				this.parseDataAndSetValues(response.data, this);
 				//Set connection to true, if get-request was successful
 				this.setStateAsync("info.connection", { val: true, ack: true });
 			})
@@ -171,7 +171,7 @@ class OekofenJson extends utils.Adapter {
 						const secondDelimiter = ":";
 						const cleanInput = input.replace(/#./g, "|");
 						const output = cleanInput.split(firstDelimiter).reduce( (newArr, element, i) => {
-							let subArr = element.split(secondDelimiter);
+							const subArr = element.split(secondDelimiter);
 							newArr[i] = subArr;
 
 							return newArr;
@@ -197,27 +197,35 @@ class OekofenJson extends utils.Adapter {
 						read: true,
 						write: (innerKey.startsWith("L_") ? false : true),
 						states: objStates,
-						min: jsonData[key][innerKey].min,
-						max: jsonData[key][innerKey].max
+						min: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].min * jsonData[key][innerKey].factor) : jsonData[key][innerKey].min ) ,
+						max: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].max * jsonData[key][innerKey].factor) : jsonData[key][innerKey].max ) ,
+						unit: jsonData[key][innerKey].unit
 					},
 					native: {
 						factor: jsonData[key][innerKey].factor
 					}
 				});
 			});
+
 		});
 	}
 
 	/**
 	 * @param {object} jsonData
 	 */
-	parseDataAndSetValues(jsonData) {
+	parseDataAndSetValues(jsonData, callback) {
+
 		Object.keys(jsonData).forEach(key => {
 			Object.keys(jsonData[key]).forEach(innerKey => {
 				try {
 
-					this.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey], ack: true});
-
+					this.getObject(key + "." + innerKey, function(err, obj) {
+						if (obj && obj.native.factor) {
+							callback.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey] * obj.native.factor, ack: true});
+						} else {
+							callback.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey], ack: true});
+						}
+					});
 
 					// if(typeof jsonData[key][innerKey] === "string")
 					// if(jsonData[key][innerKey].val === undefined) {
