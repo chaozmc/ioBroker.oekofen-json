@@ -14,31 +14,14 @@
 ## oekofen-json adapter for ioBroker
 
 Connect OekoFEN Pellematic via JSON to ioBroker
+This adapter tries to read the full version of the heaters json interface and create the objects on the fly with correct settings.
+Settings include the factor, min, max and unit (like celsius, ...). It also respects the read/write settings which the json interface supports. In case a datapoint name starts with L_ it will be created to read only in ioBroker. 
+
+After installation, its just required to enter the IP, port, so-called password and the interval at which the adapter tries to pull the updates. 
+
 
 ## Developer manual
 This section is intended for the developer. It can be deleted later
-
-### Getting started
-
-You are almost done, only a few steps left:
-1. Create a new repository on GitHub with the name `ioBroker.oekofen-json`
-1. Initialize the current folder as a new git repository:  
-	```bash
-	git init -b main
-	git add .
-	git commit -m "Initial commit"
-	```
-1. Link your local repository with the one on GitHub:  
-	```bash
-	git remote add origin https://github.com/chaozmc/ioBroker.oekofen-json
-	```
-
-1. Push all files to the GitHub repo:  
-	```bash
-	git push origin main
-	```
-
-1. Head over to [main.js](main.js) and start programming!
 
 ### Best Practices
 We've collected some [best practices](https://github.com/ioBroker/ioBroker.repositories#development-and-coding-best-practices) regarding ioBroker development and coding in general. If you're new to ioBroker or Node.js, you should
@@ -84,26 +67,20 @@ Additional command line options for the release script are explained in the
 To get your adapter released in ioBroker, please refer to the documentation 
 of [ioBroker.repositories](https://github.com/ioBroker/ioBroker.repositories#requirements-for-adapter-to-get-added-to-the-latest-repository).
 
-### Test the adapter manually with dev-server
-Since you set up `dev-server`, you can use it to run, test and debug your adapter.
-
-You may start `dev-server` by calling from your dev directory:
-```bash
-dev-server watch
-```
-
-The ioBroker.admin interface will then be available at http://localhost:8081/
-
-Please refer to the [`dev-server` documentation](https://github.com/ioBroker/dev-server#command-line) for more details.
 
 ## Changelog
 <!--
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
 ### **WORK IN PROGRESS**
-* (chaozmc) initial release
+* (chaozmc) better logging & error/exception handling
+
+### **0.0.2**
+* (chaozmc) first working release, fixed 0-value updates
+
+### **0.0.1**
+* (chaozmc) initial build phase, much try and error
 
 ## License
 MIT License

@@ -240,8 +240,7 @@ class OekofenJson extends utils.Adapter {
 	 * @param {ioBroker.State | null | undefined} state
 	 */
 	async onStateChange(id, state) {
-		if (state && !state.ack && state.val) {
-
+		if (state && !state.ack) {
 			const dataPoint = await this.getObjectAsync(id);
 			if (!dataPoint) {
 				return "Error, DataPoint not found";

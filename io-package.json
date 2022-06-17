@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "oekofen-json",
-		"version": "0.0.1",
+		"version": "0.0.2",
 		"news": {
+			"0.0.2": {
+				"en": "first working release",
+				"de": "erste arbeitsfreigabe",
+				"ru": "первый рабочий релиз",
+				"pt": "primeiro lançamento de trabalho",
+				"nl": "eerste werking",
+				"fr": "premier communiqué de travail",
+				"it": "primo rilascio di lavoro",
+				"es": "primer lanzamiento de trabajo",
+				"pl": "pierwsze wydanie",
+				"zh-cn": "首次工作释放"
+			  },
 			"0.0.1": {
 				"en": "initial release",
 				"de": "Erstveröffentlichung",
