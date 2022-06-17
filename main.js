@@ -1,15 +1,15 @@
 "use strict";
 
-const { adapter } = require("@iobroker/adapter-core");
 const utils = require("@iobroker/adapter-core");
-
-//const { type } = require("os");
-
+const { debug } = require("console");
+const { type } = require("os");
+const { toNamespacedPath } = require("path");
 const axios = require("axios").default;
 let url = "";
 let updateDataInterval;
 let timeout1;
 let deadManSwitch;
+// let tempObjStore;
 
 class OekofenJson extends utils.Adapter {
 
@@ -22,7 +22,7 @@ class OekofenJson extends utils.Adapter {
 			name: "oekofen-json",
 		});
 		this.on("ready", this.onReady.bind(this));
-		this.on("stateChange", this.onStateChange.bind(this));
+		this.on("stateChange", this.onStateChange.bind(this), this);
 		// this.on("objectChange", this.onObjectChange.bind(this));
 		// this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
@@ -32,24 +32,13 @@ class OekofenJson extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	async onReady() {
-		// Initialize your adapter here
-
-		// The adapters config (in the instance object everything under the attribute "native") is accessible via
-		// this.config:
 
 		this.log.info("OekoFEN IP: " + this.config.oekofenIp);
 		this.log.info("OekoFEN Port: " + this.config.oekofenPort);
 		this.log.info("OekoFEN Passwort: " + this.config.oekofenPassword);
 		this.log.info("Request Interval: " + this.config.myRequestInterval);
 
-
 		url = "http://" + this.config.oekofenIp + ":" + this.config.oekofenPort + "/" + this.config.oekofenPassword;
-
-		/*
-		For every state in the system there has to be also an object of type state
-		Here a simple template for a boolean variable named "testVariable"
-		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-		*/
 
 		//////////////// Create Objects ///////////////////////////
 		///////////////////////////////////////////////////////////
@@ -72,7 +61,6 @@ class OekofenJson extends utils.Adapter {
 		});
 
 
-
 		///////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////
 
@@ -81,8 +69,6 @@ class OekofenJson extends utils.Adapter {
 		//await this.initialScan(url);
 		this.setStateAsync("info.connection", { val: false, ack: true });
 
-
-
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
 		//this.subscribeStates("testVariable");
 		// You can also add a subscription for multiple states. The following line watches all states starting with "lights."
@@ -90,26 +76,6 @@ class OekofenJson extends utils.Adapter {
 		// Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
 		// this.subscribeStates("*");
 
-		/*
-			setState examples
-			you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-		*/
-		// the variable testVariable is set to true as command (ack=false)
-		//await this.setStateAsync("testVariable", true);
-
-		// same thing, but the value is flagged "ack"
-		// ack should be always set to true if the value is received from or acknowledged from the target system
-		//await this.setStateAsync("testVariable", { val: true, ack: true });
-
-		// same thing, but the state is deleted after 30s (getState will return null afterwards)
-		//await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-
-		// examples for the checkPassword/checkGroup functions
-		// let result = await this.checkPasswordAsync("admin", "iobroker");
-		// this.log.info("check user admin pw iobroker: " + result);
-
-		// result = await this.checkGroupAsync("admin", "admin");
-		// this.log.info("check group user admin group admin: " + result);
 	}
 
 	async heartbeat() {
@@ -170,7 +136,7 @@ class OekofenJson extends utils.Adapter {
 						const firstDelimiter = "|";
 						const secondDelimiter = ":";
 						const cleanInput = input.replace(/#./g, "|");
-						const output = cleanInput.split(firstDelimiter).reduce( (newArr, element, i) => {
+						const output = cleanInput.split(firstDelimiter).reduce( (/** @type {{ [x: string]: any; }} */ newArr, /** @type {string} */ element, /** @type {string | number} */ i) => {
 							const subArr = element.split(secondDelimiter);
 							newArr[i] = subArr;
 
@@ -187,24 +153,28 @@ class OekofenJson extends utils.Adapter {
 					objType = "mixed";
 				}
 
+				if (!innerKey.endsWith("_info")) {
+					this.setObjectNotExists(key + "." + innerKey, {
+						type: "state",
+						common: {
+							name: innerKey,
+							type: objType,
+							role: "state",
+							read: true,
+							write: (innerKey.startsWith("L_") ? false : true),
+							states: objStates,
+							min: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].min * jsonData[key][innerKey].factor) : jsonData[key][innerKey].min ) ,
+							max: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].max * jsonData[key][innerKey].factor) : jsonData[key][innerKey].max ) ,
+							unit: jsonData[key][innerKey].unit
+						},
+						native: {
+							factor: jsonData[key][innerKey].factor
+						}
+					});
 
-				this.setObjectNotExists(key + "." + innerKey, {
-					type: "state",
-					common: {
-						name: innerKey,
-						type: objType,
-						role: "state",
-						read: true,
-						write: (innerKey.startsWith("L_") ? false : true),
-						states: objStates,
-						min: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].min * jsonData[key][innerKey].factor) : jsonData[key][innerKey].min ) ,
-						max: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].max * jsonData[key][innerKey].factor) : jsonData[key][innerKey].max ) ,
-						unit: jsonData[key][innerKey].unit
-					},
-					native: {
-						factor: jsonData[key][innerKey].factor
-					}
-				});
+					if (!innerKey.startsWith("L_")) { this.subscribeStates(key + "." + innerKey); }
+
+				}
 			});
 
 		});
@@ -212,18 +182,18 @@ class OekofenJson extends utils.Adapter {
 
 	/**
 	 * @param {object} jsonData
+	 * @param {object} instanceObject
 	 */
-	parseDataAndSetValues(jsonData, callback) {
-
+	parseDataAndSetValues(jsonData, instanceObject) {
 		Object.keys(jsonData).forEach(key => {
 			Object.keys(jsonData[key]).forEach(innerKey => {
 				try {
 
 					this.getObject(key + "." + innerKey, function(err, obj) {
 						if (obj && obj.native.factor) {
-							callback.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey] * obj.native.factor, ack: true});
+							instanceObject.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey] * obj.native.factor, ack: true});
 						} else {
-							callback.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey], ack: true});
+							instanceObject.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey], ack: true});
 						}
 					});
 
@@ -253,9 +223,6 @@ class OekofenJson extends utils.Adapter {
 	 */
 	onUnload(callback) {
 		try {
-			// Here you must clear all timeouts or intervals that may still be active
-			// clearTimeout(timeout1);
-
 			clearTimeout(timeout1);
 			clearInterval(updateDataInterval);
 			clearInterval(deadManSwitch);
@@ -267,57 +234,76 @@ class OekofenJson extends utils.Adapter {
 		}
 	}
 
-	// If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
-	// You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
-	// /**
-	//  * Is called if a subscribed object changes
-	//  * @param {string} id
-	//  * @param {ioBroker.Object | null | undefined} obj
-	//  */
-	// onObjectChange(id, obj) {
-	// 	if (obj) {
-	// 		// The object was changed
-	// 		this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-	// 	} else {
-	// 		// The object was deleted
-	// 		this.log.info(`object ${id} deleted`);
-	// 	}
-	// }
-
 	/**
 	 * Is called if a subscribed state changes
 	 * @param {string} id
 	 * @param {ioBroker.State | null | undefined} state
 	 */
-	onStateChange(id, state) {
-		if (state) {
-			// The state was changed
+	async onStateChange(id, state) {
+		if (state && !state.ack && state.val) {
+
+			const dataPoint = await this.getObjectAsync(id);
+			if (!dataPoint) {
+				return "Error, DataPoint not found";
+			}
+			if (dataPoint.native.factor) {
+				const realValue = Number.parseInt(state.val) / dataPoint.native.factor
+				if (dataPoint.max) {
+					const realMax = dataPoint.max / dataPoint.native.factor;
+					if (realValue > realMax) {
+						this.log.error("Value " + state.val + " for dataPoint " + id + "is bigger than allowed max (" + dataPoint.max +")");
+						return "Error; Value bigger than maxVal";
+					}
+				}
+				if (dataPoint.min) {
+					const realMin = dataPoint.min / dataPoint.native.factor;
+					if (realValue < realMin) {
+						this.log.error("Value " + state.val + " for dataPoint " + id + "is smaller than allowed min (" + dataPoint.min +")");
+						return "Error; Value smaller than minVal";
+					}
+				}
+				if (await this.sendUpdateToOekofen(id, realValue)) {
+					await this.setStateAsync(id, state.val, true);
+				}
+
+			} else {
+				if (await this.sendUpdateToOekofen(id, state.val)) {
+					await this.setStateAsync(id, state.val, true);
+				}
+			}
+
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
 			// The state was deleted
-			this.log.info(`state ${id} deleted`);
+			//this.log.info(`state ${id} deleted`);
 		}
 	}
 
-	// If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-	// /**
-	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-	//  * @param {ioBroker.Message} obj
-	//  */
-	// onMessage(obj) {
-	// 	if (typeof obj === "object" && obj.message) {
-	// 		if (obj.command === "send") {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info("send command");
 
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-	// 		}
-	// 	}
-	// }
 
+	/**
+	 * @param {string} stateId
+	 * @param {string | number} newValue
+	 */
+	async sendUpdateToOekofen(stateId, newValue) {
+		const urlForUpdate = url + "/" + stateId.replace(this.namespace, "").substring(1) + "=" + newValue;
+		console.log(urlForUpdate);
+		try {
+			const res = await axios.get(urlForUpdate, { responseEncoding: "latin1" });
+			if (res.status === 200 && !res.data.startsWith("Failure")) {
+				return true;
+			} else {
+				this.log.error("[sendUpdateToOekofen] Error while making Webrequest: Webserver sent Failure");
+				return false;
+			}
+		} catch (error) {
+			this.log.error("[sendUpdateToOekofen] Error while making Webrequest: " + error);
+		}
+		return false;
+	}
 }
+
+
 
 if (require.main !== module) {
 	// Export the constructor in compact mode
