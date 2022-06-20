@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "oekofen-json",
-		"version": "0.0.2",
+		"version": "0.0.3",
 		"news": {
+			"0.0.3": {
+				"en": "code-cleanup, trigger update and rescan ability",
+				"de": "code-cleanup, trigger-update und rescan-fähigkeit",
+				"ru": "код-cleanup, триггер обновление и rescan способность",
+				"pt": "limpeza de código, atualização de gatilho e capacidade de rescan",
+				"nl": "code-cleanup, trigger update en rescan vaardigheden",
+				"fr": "nettoyage de code, mise à jour de déclenchement et capacité de rescan",
+				"it": "pulizia del codice, aggiornamento del trigger e capacità di rescan",
+				"es": "codificar, activar la actualización y cambiar la capacidad",
+				"pl": "oczyszczenie kodu, uaktualnienie i reskanowanie",
+				"zh-cn": "a. 守则汇编、触发更新和复查能力"
+			  },
 			"0.0.2": {
 				"en": "first working release",
 				"de": "erste arbeitsfreigabe",

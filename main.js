@@ -1,15 +1,10 @@
 "use strict";
 
 const utils = require("@iobroker/adapter-core");
-const { debug } = require("console");
-const { type } = require("os");
-const { toNamespacedPath } = require("path");
 const axios = require("axios").default;
 let url = "";
 let updateDataInterval;
-let timeout1;
-let deadManSwitch;
-// let tempObjStore;
+let timeout1Scan;
 
 class OekofenJson extends utils.Adapter {
 
@@ -22,9 +17,7 @@ class OekofenJson extends utils.Adapter {
 			name: "oekofen-json",
 		});
 		this.on("ready", this.onReady.bind(this));
-		this.on("stateChange", this.onStateChange.bind(this), this);
-		// this.on("objectChange", this.onObjectChange.bind(this));
-		// this.on("message", this.onMessage.bind(this));
+		this.on("stateChange", this.onStateChange.bind(this));
 		this.on("unload", this.onUnload.bind(this));
 	}
 
@@ -33,20 +26,11 @@ class OekofenJson extends utils.Adapter {
 	 */
 	async onReady() {
 
-		this.log.info("OekoFEN IP: " + this.config.oekofenIp);
-		this.log.info("OekoFEN Port: " + this.config.oekofenPort);
-		this.log.info("OekoFEN Passwort: " + this.config.oekofenPassword);
-		this.log.info("Request Interval: " + this.config.myRequestInterval);
-
+		//Build our request URL
 		url = "http://" + this.config.oekofenIp + ":" + this.config.oekofenPort + "/" + this.config.oekofenPassword;
 
-		//////////////// Create Objects ///////////////////////////
-		///////////////////////////////////////////////////////////
 
-
-		/************************************************
-		 * Here we create the connection-state variable *
-		*************************************************/
+		//create the connection-state variable
 		await this.setObjectNotExistsAsync("info.connection", {
 			type: "state",
 			common: {
@@ -55,32 +39,52 @@ class OekofenJson extends utils.Adapter {
 				role: "indicator",
 				desc: "Test",
 				read: true,
+				write: false,
+			},
+			native: {},
+		});
+
+		//create a rescan state which will trigger a complete rescan of all datapoints, like it's done on adapter load
+		await this.setObjectNotExistsAsync("info.rescan", {
+			type: "state",
+			common: {
+				name: "rescan",
+				type: "boolean",
+				role: "button",
+				desc: "Rescan JSON and create (missing) datapoints",
+				read: true,
 				write: true,
 			},
 			native: {},
 		});
 
 
-		///////////////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////
+		//create an update state, which will trigger an update of all datapoints 
+		await this.setObjectNotExistsAsync("info.update", {
+			type: "state",
+			common: {
+				name: "rescan",
+				type: "boolean",
+				role: "button",
+				desc: "Trigger an update of all states now",
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
 
-		timeout1 = setTimeout(async() => await this.initialScan(url), 10000);
-		deadManSwitch = setInterval(async() => await this.heartbeat(), Number.parseInt(this.config.myRequestInterval)*2000);
-		//await this.initialScan(url);
+		this.subscribeStates("info.rescan");
+		this.subscribeStates("info.update");
+		await this.setStateAsync("info.rescan", false, true);
+		await this.setStateAsync("info.update", false, true);
+
+		//Initiate a delay between Adapter-StartUp and the first connection attempt to OekoFEN
+		timeout1Scan = setTimeout(async() => await this.initialScan(url), 10000);
+
+		//Initialize the connection state with value false; it will be set to true after first successful webrequest
 		this.setStateAsync("info.connection", { val: false, ack: true });
-
-		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-		//this.subscribeStates("testVariable");
-		// You can also add a subscription for multiple states. The following line watches all states starting with "lights."
-		// this.subscribeStates("lights.*");
-		// Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
-		// this.subscribeStates("*");
-
 	}
 
-	async heartbeat() {
-		this.setStateAsync("info.connection", { val: false, ack: true });
-	}
 
 	/**
 	 * @param {string} url
@@ -105,6 +109,7 @@ class OekofenJson extends utils.Adapter {
 	 */
 	async updateData(url) {
 
+		//for a normale update, we'll use the normal /all path, this will reduce transmitted data to about half the size
 		axios.get(url + "/all", { responseEncoding: "latin1" })
 			.then(response => {
 				this.parseDataAndSetValues(response.data, this);
@@ -116,7 +121,6 @@ class OekofenJson extends utils.Adapter {
 				//Set connection to false in case of errors
 				this.setStateAsync("info.connection", { val: false, ack: true });
 			});
-
 	}
 
 	/**
@@ -124,9 +128,28 @@ class OekofenJson extends utils.Adapter {
 	 */
 	parseDataOnStartupAndCreateObjects(jsonData) {
 		Object.keys(jsonData).forEach(key => {
+			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
+			if (key === "forecast") {
+				return;
+			} else {
+				//create the top-level-keys as channels
+				this.setObjectNotExists(key, {
+					type: "channel",
+					common: {
+						name: key,
+						role: "channel",
+					},
+					native: {
+					}
+				});
+			}
+
+
+			//iterate through each child of the top-level-keys
 			Object.keys(jsonData[key]).forEach(innerKey => {
 				let objType;
 				let objStates;
+				//try to find out, how the datapoint looks like
 				if (typeof jsonData[key][innerKey].val === "number") {
 					if (jsonData[key][innerKey].format === undefined) {
 						objType = "number";
@@ -153,6 +176,7 @@ class OekofenJson extends utils.Adapter {
 					objType = "mixed";
 				}
 
+				//ignore the info-datapoint; its useless for iobroker
 				if (!innerKey.endsWith("_info")) {
 					this.setObjectNotExists(key + "." + innerKey, {
 						type: "state",
@@ -172,8 +196,8 @@ class OekofenJson extends utils.Adapter {
 						}
 					});
 
+					//subscribe only to writeable datapoints
 					if (!innerKey.startsWith("L_")) { this.subscribeStates(key + "." + innerKey); }
-
 				}
 			});
 
@@ -186,9 +210,13 @@ class OekofenJson extends utils.Adapter {
 	 */
 	parseDataAndSetValues(jsonData, instanceObject) {
 		Object.keys(jsonData).forEach(key => {
+			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
+			if (key === "forecast") {return;}
+
 			Object.keys(jsonData[key]).forEach(innerKey => {
 				try {
 
+					//get the object from ioBroker and find out if there's a factor which needs to be applied
 					this.getObject(key + "." + innerKey, function(err, obj) {
 						if (obj && obj.native.factor) {
 							instanceObject.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey] * obj.native.factor, ack: true});
@@ -197,21 +225,12 @@ class OekofenJson extends utils.Adapter {
 						}
 					});
 
-					// if(typeof jsonData[key][innerKey] === "string")
-					// if(jsonData[key][innerKey].val === undefined) {
-					// 	this.setState(key + "." + innerKey, { val: jsonData[key][innerKey].toString(), ack: true });
-					// } else if (typeof jsonData[key][innerKey].val === "number"){
-					// 	this.setState(key + "." + innerKey, { val: jsonData[key][innerKey].val, ack: true });
-					// } else if (typeof jsonData[key][innerKey].val === "string") {
-					// 	this.setState(key + "." + innerKey, { val: jsonData[key][innerKey].val.toString(), ack: true });
-					// }
-
 				} catch (error) {
+					//normally, we won't reach this code
 					this.log.error("Error in function parseDataAndSetValues: "+ error);
 					this.setState("info.connection", {val: false, ack: true});
 				}
 			});
-
 		});
 
 
@@ -223,11 +242,9 @@ class OekofenJson extends utils.Adapter {
 	 */
 	onUnload(callback) {
 		try {
-			clearTimeout(timeout1);
+			clearTimeout(timeout1Scan);
 			clearInterval(updateDataInterval);
-			clearInterval(deadManSwitch);
 			this.setStateAsync("info.connection", { val: false, ack: true });
-
 			callback();
 		} catch (e) {
 			callback();
@@ -240,13 +257,34 @@ class OekofenJson extends utils.Adapter {
 	 * @param {ioBroker.State | null | undefined} state
 	 */
 	async onStateChange(id, state) {
+		//is the onStateChange called by update or rescan trigger?
+		if (id === this.namespace + ".info.rescan" && !state.ack && state.val) {
+			this.log.debug("Rescan of all datapoints initiated");
+			await this.initialScan(url);
+			await this.setStateAsync(id, false, true);
+			return;
+		}
+
+		if (id === this.namespace + ".info.update" && !state.ack && state.val) {
+			this.log.debug("Update of values initiated");
+			await this.updateData(url);
+			await this.setStateAsync(id, false, true);
+			return;
+		}
+
+
 		if (state && !state.ack) {
+			//to update the value on the remote-side, we'll need to check if there's a factor applied or min/max is defined
+			//therefore we'll try to get the datapoint from ioBroker first
 			const dataPoint = await this.getObjectAsync(id);
 			if (!dataPoint) {
+				this.log.error("Error, DataPoint " + id + "not found!");
 				return "Error, DataPoint not found";
 			}
+
+			//check if this datapoint has a factor defined
 			if (dataPoint.native.factor) {
-				const realValue = Number.parseInt(state.val) / dataPoint.native.factor
+				const realValue = Number.parseInt(state.val) / dataPoint.native.factor;
 				if (dataPoint.max) {
 					const realMax = dataPoint.max / dataPoint.native.factor;
 					if (realValue > realMax) {
@@ -261,20 +299,22 @@ class OekofenJson extends utils.Adapter {
 						return "Error; Value smaller than minVal";
 					}
 				}
+
+				//If everything worked till here, send the update to OekoFEN and only if we receive true, set the ack flag
 				if (await this.sendUpdateToOekofen(id, realValue)) {
+					this.log.debug(`state ${id} changed: value ${state.val} (realValue=${realValue}) (ack = ${state.ack})`);
 					await this.setStateAsync(id, state.val, true);
 				}
 
 			} else {
+				//So no factor is present, just send the update to OekoFEN and only if we receive true, set the ack flag
 				if (await this.sendUpdateToOekofen(id, state.val)) {
+					this.log.debug(`state ${id} changed: value ${state.val} (ack = ${state.ack})`);
 					await this.setStateAsync(id, state.val, true);
 				}
 			}
-
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
-			// The state was deleted
-			//this.log.info(`state ${id} deleted`);
+			//this.log.debug(`state ${id} deleted`);
 		}
 	}
 
@@ -286,13 +326,12 @@ class OekofenJson extends utils.Adapter {
 	 */
 	async sendUpdateToOekofen(stateId, newValue) {
 		const urlForUpdate = url + "/" + stateId.replace(this.namespace, "").substring(1) + "=" + newValue;
-		console.log(urlForUpdate);
 		try {
 			const res = await axios.get(urlForUpdate, { responseEncoding: "latin1" });
 			if (res.status === 200 && !res.data.startsWith("Failure")) {
 				return true;
 			} else {
-				this.log.error("[sendUpdateToOekofen] Error while making Webrequest: Webserver sent Failure");
+				this.log.error("[sendUpdateToOekofen] Error while making Webrequest: Webserver rejected request");
 				return false;
 			}
 		} catch (error) {

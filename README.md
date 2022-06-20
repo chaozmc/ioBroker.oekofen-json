@@ -76,6 +76,9 @@ of [ioBroker.repositories](https://github.com/ioBroker/ioBroker.repositories#req
 ### **WORK IN PROGRESS**
 * (chaozmc) better logging & error/exception handling
 
+### **0.0.3**
+* (chaozmc) code cleanup, trigger for update & rescan
+
 ### **0.0.2**
 * (chaozmc) first working release, fixed 0-value updates
 
