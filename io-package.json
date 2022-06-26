@@ -1,104 +1,116 @@
 {
-	"common": {
-		"name": "oekofen-json",
-		"version": "0.0.3",
-		"news": {
-			"0.0.3": {
-				"en": "code-cleanup, trigger update and rescan ability",
-				"de": "code-cleanup, trigger-update und rescan-fähigkeit",
-				"ru": "код-cleanup, триггер обновление и rescan способность",
-				"pt": "limpeza de código, atualização de gatilho e capacidade de rescan",
-				"nl": "code-cleanup, trigger update en rescan vaardigheden",
-				"fr": "nettoyage de code, mise à jour de déclenchement et capacité de rescan",
-				"it": "pulizia del codice, aggiornamento del trigger e capacità di rescan",
-				"es": "codificar, activar la actualización y cambiar la capacidad",
-				"pl": "oczyszczenie kodu, uaktualnienie i reskanowanie",
-				"zh-cn": "a. 守则汇编、触发更新和复查能力"
-			  },
-			"0.0.2": {
-				"en": "first working release",
-				"de": "erste arbeitsfreigabe",
-				"ru": "первый рабочий релиз",
-				"pt": "primeiro lançamento de trabalho",
-				"nl": "eerste werking",
-				"fr": "premier communiqué de travail",
-				"it": "primo rilascio di lavoro",
-				"es": "primer lanzamiento de trabajo",
-				"pl": "pierwsze wydanie",
-				"zh-cn": "首次工作释放"
-			  },
-			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"zh-cn": "首次出版"
-			}
-		},
-		"title": "OekoFEN JSON",
-		"titleLang": {
-			"en": "OekoFEN JSON",
-			"de": "ÖkoFEN JSON",
-			"ru": "ЭкоФЕН JSON",
-			"pt": "OekoFEN JSON",
-			"nl": "OekoFEN JSON",
-			"fr": "OekoFEN JSON",
-			"it": "OekoFEN JSON",
-			"es": "OekoFEN JSON",
-			"pl": "OekoFEN JSON",
-			"zh-cn": "OekoFEN JSON"
-		},
-		"desc": {
-			"en": "Connect OekoFEN Pellematic via JSON to ioBroker",
-			"de": "Verbinden Sie OekoFEN Pellematic über JSON mit ioBroker",
-			"ru": "Подключите OekoFEN Pellematic через JSON к ioBroker",
-			"pt": "Conecte o OekoFEN Pellematic via JSON ao ioBroker",
-			"nl": "Verbind OekoFEN Pellematic via JSON met ioBroker",
-			"fr": "Connectez OekoFEN Pellematic via JSON à ioBroker",
-			"it": "Collega OekoFEN Pellematic tramite JSON a ioBroker",
-			"es": "Conecte OekoFEN Pellematic a través de JSON a ioBroker",
-			"pl": "Połącz OekoFEN Pellematic przez JSON z ioBroker",
-			"zh-cn": "通过 JSON 将 OekoFEN Pellematic 连接到 ioBroker"
-		},
-		"authors": [
-			"chaozmc <chaozmc@is-jo.org>"
-		],
-		"keywords": [
-			"oekofen",
-			"pellematic"
-		],
-		"license": "MIT",
-		"platform": "Javascript/Node.js",
-		"main": "main.js",
-		"icon": "oekofen-json.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/chaozmc/ioBroker.oekofen-json/main/admin/oekofen-json.png",
-		"readme": "https://github.com/chaozmc/ioBroker.oekofen-json/blob/main/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"type": "communication",
-		"compact": true,
-		"connectionType": "local",
-		"dataSource": "poll",
-		"materialize": true,
-		"dependencies": [
-			{
-				"js-controller": ">=2.0.0"
-			}
-		]
-	},
-	"native": {
-		"oekofenIp": "1.2.3.4",
-		"oekofenPort": "8080",
-		"oekofenPassword": "secret",
-		"myRequestInterval" : "30",
-		"myUsedEncoding" : "latin1"
-	},
-	"objects": [],
-	"instanceObjects": []
+    "common": {
+        "name": "oekofen-json",
+        "version": "0.1.0-beta.0",
+        "news": {
+            "0.1.0-beta.0": {
+                "en": "selectable response encoding (utf8 & latin1) & bit of debug-logging added",
+                "de": "wählbare antwortcodierung (utf8 & latin1) & bit debug-logging hinzugefügt",
+                "ru": "выбираемый кодирование ответа (utf8 & latin1) & bit of debug-logging добавлен",
+                "pt": "codificação de resposta selecionável (utf8 & latin1) & bit of debug-logging adicionado",
+                "nl": "_",
+                "fr": "encodage de réponse sélective (utf8 & latin1) & bit debug-logging ajouté",
+                "it": "codifica di risposta selezionabile (utf8 & latin1) & bit di debug-logging aggiunto",
+                "es": "selectable respuesta codificación (utf8 \" latin1) \" bit of debug-logging added",
+                "pl": "wybrane kodowanie odpowiedzi (utf8 & latin1) oraz bit debug-log",
+                "zh-cn": "可以选择的反应(utf8和 latin1)和减少诱拐的轨道"
+            },
+            "0.0.3": {
+                "en": "code-cleanup, trigger update and rescan ability",
+                "de": "code-cleanup, trigger-update und rescan-fähigkeit",
+                "ru": "код-cleanup, триггер обновление и rescan способность",
+                "pt": "limpeza de código, atualização de gatilho e capacidade de rescan",
+                "nl": "code-cleanup, trigger update en rescan vaardigheden",
+                "fr": "nettoyage de code, mise à jour de déclenchement et capacité de rescan",
+                "it": "pulizia del codice, aggiornamento del trigger e capacità di rescan",
+                "es": "codificar, activar la actualización y cambiar la capacidad",
+                "pl": "oczyszczenie kodu, uaktualnienie i reskanowanie",
+                "zh-cn": "a. 守则汇编、触发更新和复查能力"
+            },
+            "0.0.2": {
+                "en": "first working release",
+                "de": "erste arbeitsfreigabe",
+                "ru": "первый рабочий релиз",
+                "pt": "primeiro lançamento de trabalho",
+                "nl": "eerste werking",
+                "fr": "premier communiqué de travail",
+                "it": "primo rilascio di lavoro",
+                "es": "primer lanzamiento de trabajo",
+                "pl": "pierwsze wydanie",
+                "zh-cn": "首次工作释放"
+            },
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "OekoFEN JSON",
+        "titleLang": {
+            "en": "OekoFEN JSON",
+            "de": "ÖkoFEN JSON",
+            "ru": "ЭкоФЕН JSON",
+            "pt": "OekoFEN JSON",
+            "nl": "OekoFEN JSON",
+            "fr": "OekoFEN JSON",
+            "it": "OekoFEN JSON",
+            "es": "OekoFEN JSON",
+            "pl": "OekoFEN JSON",
+            "zh-cn": "OekoFEN JSON"
+        },
+        "desc": {
+            "en": "Connect OekoFEN Pellematic via JSON to ioBroker",
+            "de": "Verbinden Sie OekoFEN Pellematic über JSON mit ioBroker",
+            "ru": "Подключите OekoFEN Pellematic через JSON к ioBroker",
+            "pt": "Conecte o OekoFEN Pellematic via JSON ao ioBroker",
+            "nl": "Verbind OekoFEN Pellematic via JSON met ioBroker",
+            "fr": "Connectez OekoFEN Pellematic via JSON à ioBroker",
+            "it": "Collega OekoFEN Pellematic tramite JSON a ioBroker",
+            "es": "Conecte OekoFEN Pellematic a través de JSON a ioBroker",
+            "pl": "Połącz OekoFEN Pellematic przez JSON z ioBroker",
+            "zh-cn": "通过 JSON 将 OekoFEN Pellematic 连接到 ioBroker"
+        },
+        "authors": [
+            "chaozmc <chaozmc@is-jo.org>"
+        ],
+        "keywords": [
+            "oekofen",
+            "pellematic"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "oekofen-json.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/chaozmc/ioBroker.oekofen-json/main/admin/oekofen-json.png",
+        "readme": "https://github.com/chaozmc/ioBroker.oekofen-json/blob/main/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "communication",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "poll",
+        "materialize": true,
+        "dependencies": [
+            {
+                "js-controller": ">=2.0.0"
+            }
+        ]
+    },
+    "native": {
+        "oekofenIp": "1.2.3.4",
+        "oekofenPort": "8080",
+        "oekofenPassword": "secret",
+        "myRequestInterval": "30",
+        "myUsedEncoding": "latin1"
+    },
+    "objects": [],
+    "instanceObjects": []
 }
