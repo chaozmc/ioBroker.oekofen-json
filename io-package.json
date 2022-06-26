@@ -96,7 +96,8 @@
 		"oekofenIp": "1.2.3.4",
 		"oekofenPort": "8080",
 		"oekofenPassword": "secret",
-		"myRequestInterval" : "30"
+		"myRequestInterval" : "30",
+		"myUsedEncoding" : "latin1"
 	},
 	"objects": [],
 	"instanceObjects": []

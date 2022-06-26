@@ -5,6 +5,7 @@ const axios = require("axios").default;
 let url = "";
 let updateDataInterval;
 let timeout1Scan;
+let selectedEncoding;
 
 class OekofenJson extends utils.Adapter {
 
@@ -28,9 +29,26 @@ class OekofenJson extends utils.Adapter {
 
 		//Build our request URL
 		url = "http://" + this.config.oekofenIp + ":" + this.config.oekofenPort + "/" + this.config.oekofenPassword;
+		this.log.debug("[onReady] Generated URL for requests: " + url);
+
+		switch (this.config.myUsedEncoding) {
+			case "latin1":
+				selectedEncoding = "latin1";
+				break;
+
+			case "utf8":
+				selectedEncoding = "utf8";
+				break;
+
+			default:
+				selectedEncoding = "latin1";
+				break;
+		}
+		this.log.debug("[onReady] Encoding from Admin-Config: " + this.config.myUsedEncoding + " // Effective used encoding: " + selectedEncoding);
 
 
 		//create the connection-state variable
+		this.log.debug("[onReady] create connection datapoint");
 		await this.setObjectNotExistsAsync("info.connection", {
 			type: "state",
 			common: {
@@ -45,6 +63,7 @@ class OekofenJson extends utils.Adapter {
 		});
 
 		//create a rescan state which will trigger a complete rescan of all datapoints, like it's done on adapter load
+		this.log.debug("[onReady] create rescan datapoint");
 		await this.setObjectNotExistsAsync("info.rescan", {
 			type: "state",
 			common: {
@@ -59,11 +78,13 @@ class OekofenJson extends utils.Adapter {
 		});
 
 
-		//create an update state, which will trigger an update of all datapoints 
+
+		//create an update state, which will trigger an update of all datapoints
+		this.log.debug("[onReady] create update datapoint");
 		await this.setObjectNotExistsAsync("info.update", {
 			type: "state",
 			common: {
-				name: "rescan",
+				name: "update",
 				type: "boolean",
 				role: "button",
 				desc: "Trigger an update of all states now",
@@ -73,15 +94,26 @@ class OekofenJson extends utils.Adapter {
 			native: {},
 		});
 
+
+		this.log.debug("[onReady] subscribed to rescan datapoint");
 		this.subscribeStates("info.rescan");
+
+		this.log.debug("[onReady] subscribed to update datapoint");
 		this.subscribeStates("info.update");
+
+		this.log.debug("[onReady] info.rescan value set to false");
 		await this.setStateAsync("info.rescan", false, true);
+
+		this.log.debug("[onReady] info.update set to false");
 		await this.setStateAsync("info.update", false, true);
 
+
 		//Initiate a delay between Adapter-StartUp and the first connection attempt to OekoFEN
+		this.log.debug("[onReady] created timeout for 1st scan");
 		timeout1Scan = setTimeout(async() => await this.initialScan(url), 10000);
 
 		//Initialize the connection state with value false; it will be set to true after first successful webrequest
+		this.log.debug("[onReady] set info.connection to initial false");
 		this.setStateAsync("info.connection", { val: false, ack: true });
 	}
 
@@ -90,35 +122,44 @@ class OekofenJson extends utils.Adapter {
 	 * @param {string} url
 	 */
 	async initialScan(url) {
-		await axios.get(url + "/all??", { responseEncoding: "latin1" })
+		this.log.debug("[initialScan] called with url: " + url + " and encoding: " + selectedEncoding);
+		await axios.get(url + "/all??", { responseEncoding: selectedEncoding })
 			.then(response => {
+				this.log.debug("[initialScan_axios.get] got HTTP/200 response, call parseDataOnStartupAndCreateObjects with response.data");
 				this.parseDataOnStartupAndCreateObjects(response.data);
 				//Set connection to true, if get-request was successful
+				this.log.debug("[initialScan_axios.get] set info.connection to true as request was successful");
 				this.setStateAsync("info.connection", { val: true, ack: true });
 			})
 			.catch(error => {
-				this.log.error(error);
+				this.log.error("[initialScan_axios.get.catch] " + error);
 				//Set connection to false in case of errors
+				this.log.debug("[initialScan_axios.get.catch] error while request has occured, setting info.connection to false");
 				this.setStateAsync("info.connection", { val: false, ack: true });
 			});
+		this.log.debug("[initialScan] set updateDataInterval to " + Number.parseInt(this.config.myRequestInterval)*1000);
 		updateDataInterval = setInterval(async () => await this.updateData(url), Number.parseInt(this.config.myRequestInterval)*1000);
 	}
+
 
 	/**
 	 * @param {string} url
 	 */
 	async updateData(url) {
-
+		this.log.debug("[updateData] called with url: " + url + " and encoding: " + selectedEncoding);
 		//for a normale update, we'll use the normal /all path, this will reduce transmitted data to about half the size
-		axios.get(url + "/all", { responseEncoding: "latin1" })
+		axios.get(url + "/all", { responseEncoding: selectedEncoding })
 			.then(response => {
+				this.log.debug("[updateData_axios.get] got HTTP/200 response, call parseDataAndSetValues with response.data");
 				this.parseDataAndSetValues(response.data, this);
 				//Set connection to true, if get-request was successful
+				this.log.debug("[updateData_axios.get] set info.connection to true as request was successful");
 				this.setStateAsync("info.connection", { val: true, ack: true });
 			})
 			.catch(error => {
-				this.log.error(error);
+				this.log.error("[updateData_axios.get.catch] " + error);
 				//Set connection to false in case of errors
+				this.log.debug("[updateData_axios.get.catch] error while request has occured, setting info.connection to false");
 				this.setStateAsync("info.connection", { val: false, ack: true });
 			});
 	}
