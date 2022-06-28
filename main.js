@@ -210,7 +210,7 @@ class OekofenJson extends utils.Adapter {
 						}, []);
 						objStates = Object.fromEntries(output);
 					}
-				} else if(typeof jsonData[key][innerKey].val === "string") {
+				} else if(typeof jsonData[key][innerKey].val === "string" || innerKey === "name") {
 					objType = "string";
 				} else if(jsonData[key][innerKey].val === undefined) {
 					objType = "string";
@@ -231,12 +231,12 @@ class OekofenJson extends utils.Adapter {
 							read: true,
 							write: (innerKey.startsWith("L_") ? false : true),
 							states: objStates,
-							min: (jsonData[key][innerKey].factor && Number(jsonData[key][innerKey].factor) != 1 ? (Number(jsonData[key][innerKey].min) * Number(jsonData[key][innerKey].factor)) : Number(jsonData[key][innerKey].min) ) ,
-							max: (jsonData[key][innerKey].factor && Number(jsonData[key][innerKey].factor) != 1 ? (Number(jsonData[key][innerKey].max) * Number(jsonData[key][innerKey].factor)) : Number(jsonData[key][innerKey].max) ) ,
+							min: (jsonData[key][innerKey].factor && Number(jsonData[key][innerKey].factor) != 1 ? (Number(jsonData[key][innerKey].min) * Number(jsonData[key][innerKey].factor)) : (jsonData[key][innerKey].min ? Number(jsonData[key][innerKey].min) : undefined)) ,
+							max: (jsonData[key][innerKey].factor && Number(jsonData[key][innerKey].factor) != 1 ? (Number(jsonData[key][innerKey].max) * Number(jsonData[key][innerKey].factor)) : (jsonData[key][innerKey].max ? Number(jsonData[key][innerKey].max) : undefined)) ,
 							unit: (jsonData[key][innerKey].unit === "?C" ? "°C" : jsonData[key][innerKey].unit)
 						},
 						native: {
-							factor: Number(jsonData[key][innerKey].factor)
+							factor: (jsonData[key][innerKey].factor ? Number(jsonData[key][innerKey].factor) : undefined)
 						}
 					});
 
