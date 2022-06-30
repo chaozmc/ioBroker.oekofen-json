@@ -191,7 +191,8 @@ class OekofenJson extends utils.Adapter {
 				let objType;
 				let objStates;
 				//try to find out, how the datapoint looks like
-				if (typeof jsonData[key][innerKey].val === "number") {
+				//For v3.10d try to find out if the current datapoint maybe is a wrongly stringified Number
+				if ((typeof jsonData[key][innerKey].val === "number") || !isNaN(Number(jsonData[key][innerKey].val))) {
 					if (jsonData[key][innerKey].format === undefined) {
 						objType = "number";
 					} else {
@@ -209,7 +210,7 @@ class OekofenJson extends utils.Adapter {
 						}, []);
 						objStates = Object.fromEntries(output);
 					}
-				} else if(typeof jsonData[key][innerKey].val === "string") {
+				} else if(typeof jsonData[key][innerKey].val === "string" || innerKey === "name") {
 					objType = "string";
 				} else if(jsonData[key][innerKey].val === undefined) {
 					objType = "string";
@@ -217,6 +218,8 @@ class OekofenJson extends utils.Adapter {
 					objType = "mixed";
 				}
 
+				//As v3.10d sends everything as string, convert everything which could be a number to a number.
+				//In later versions, Number(aNumber) should just return itself
 				//ignore the info-datapoint; its useless for iobroker
 				if (!innerKey.endsWith("_info")) {
 					this.setObjectNotExists(key + "." + innerKey, {
@@ -228,12 +231,12 @@ class OekofenJson extends utils.Adapter {
 							read: true,
 							write: (innerKey.startsWith("L_") ? false : true),
 							states: objStates,
-							min: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].min * jsonData[key][innerKey].factor) : jsonData[key][innerKey].min ) ,
-							max: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].max * jsonData[key][innerKey].factor) : jsonData[key][innerKey].max ) ,
-							unit: jsonData[key][innerKey].unit
+							min: (jsonData[key][innerKey].factor && Number(jsonData[key][innerKey].factor) != 1 ? (Number(jsonData[key][innerKey].min) * Number(jsonData[key][innerKey].factor)) : (jsonData[key][innerKey].min ? Number(jsonData[key][innerKey].min) : undefined)) ,
+							max: (jsonData[key][innerKey].factor && Number(jsonData[key][innerKey].factor) != 1 ? (Number(jsonData[key][innerKey].max) * Number(jsonData[key][innerKey].factor)) : (jsonData[key][innerKey].max ? Number(jsonData[key][innerKey].max) : undefined)) ,
+							unit: (jsonData[key][innerKey].unit === "?C" ? "°C" : jsonData[key][innerKey].unit)
 						},
 						native: {
-							factor: jsonData[key][innerKey].factor
+							factor: (jsonData[key][innerKey].factor ? Number(jsonData[key][innerKey].factor) : undefined)
 						}
 					});
 
@@ -259,10 +262,18 @@ class OekofenJson extends utils.Adapter {
 
 					//get the object from ioBroker and find out if there's a factor which needs to be applied
 					this.getObject(key + "." + innerKey, function(err, obj) {
-						if (obj && obj.native.factor) {
-							instanceObject.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey] * obj.native.factor, ack: true});
+						//Try to find out, if we're dealing with v3.10d
+						let tNewVal;
+						if (!isNaN(Number(jsonData[key][innerKey]))) {
+							tNewVal = Number(jsonData[key][innerKey]);
 						} else {
-							instanceObject.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey], ack: true});
+							tNewVal = jsonData[key][innerKey];
+						}
+
+						if (obj && obj.native.factor) {
+							instanceObject.setStateAsync(key + "." + innerKey, {val: tNewVal * obj.native.factor, ack: true});
+						} else {
+							instanceObject.setStateAsync(key + "." + innerKey, {val: tNewVal, ack: true});
 						}
 					});
 
