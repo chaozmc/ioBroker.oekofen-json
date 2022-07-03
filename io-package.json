@@ -98,9 +98,17 @@
         "connectionType": "local",
         "dataSource": "poll",
         "materialize": true,
+        "adminUI": {
+            "config": "json"
+        },
         "dependencies": [
             {
                 "js-controller": ">=2.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.2.0"
             }
         ]
     },
