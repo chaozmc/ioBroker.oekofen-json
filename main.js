@@ -192,7 +192,7 @@ class OekofenJson extends utils.Adapter {
 				let objStates;
 				//try to find out, how the datapoint looks like
 				//For v3.10d try to find out if the current datapoint maybe is a wrongly stringified Number
-				if ((typeof jsonData[key][innerKey].val === "number") || !isNaN(Number(jsonData[key][innerKey].val))) {
+				if ((innerKey !== "name") && ((typeof jsonData[key][innerKey].val === "number") || !isNaN(Number(jsonData[key][innerKey].val)))) {
 					if (jsonData[key][innerKey].format === undefined) {
 						objType = "number";
 					} else {
@@ -217,6 +217,7 @@ class OekofenJson extends utils.Adapter {
 				} else {
 					objType = "mixed";
 				}
+
 
 				//As v3.10d sends everything as string, convert everything which could be a number to a number.
 				//In later versions, Number(aNumber) should just return itself
