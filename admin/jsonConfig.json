@@ -1,0 +1,72 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_options": {
+            "type": "panel",
+            "label": "Options",
+            "items": {
+                "oekofenIp" : {
+                    "type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "OekoFEN IP",
+                    "help": "The IP of your OekoFEN touch device in the network"
+                },
+                "oekofenPort" : {
+                    "type": "number",
+                    "min": 1,
+                    "max": 65535,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "TCPPort",
+                    "help": "The Port you've set on your OekoFEN touch device to listen on"
+                },
+                "oekofenPassword" : {
+                    "type": "password",
+                    "repeat": true,
+                    "visible": true,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "Password",
+                    "help": "Enter the password you've set on your OekoFEN touch device"
+                },
+                "myRequestInterval" : {
+                    "type": "number",
+                    "min": 10,
+                    "max": 240,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "Poll-Interval (s)",
+                    "help": "How often should the adapter pull the updates from the device"
+                },
+                "myUsedEncoding" : {
+                    "type": "select",
+                    "options": [
+                        {
+                            "label": {
+                                "en": "latin1"
+                            },
+                            "value": "latin1"
+                        },
+                        {
+                            "label": {
+                                "en": "utf8"
+                            },
+                            "value": "utf8"
+                        }
+                    ],
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "Encoding",
+                    "help": "Which encoding should be used when interpreting data from the device"
+                }
+            }
+        }
+    }
+}

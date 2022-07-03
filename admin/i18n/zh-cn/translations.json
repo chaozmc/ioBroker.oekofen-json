@@ -1,0 +1,13 @@
+{
+    "Options": "选项",
+    "OekoFEN IP": "OekoFEN IP",
+    "TCPPort": "TCP端口",
+    "Password": "密码",
+    "Poll-Interval (s)": "轮询间隔 (s)",
+    "Encoding": "编码",
+    "The IP of your OekoFEN touch device in the network": "您的 OekoFEN 触控设备在网络中的 IP",
+    "The Port you've set on your OekoFEN touch device to listen on": "您在 OekoFEN 触控设备上设置的监听端口",
+    "Enter the password you've set on your OekoFEN touch device": "输入您在 OekoFEN 触控设备上设置的密码",
+    "How often should the adapter pull the updates from the device": "适配器应该多久从设备中提取一次更新",
+    "Which encoding should be used when interpreting data from the device": "解释来自设备的数据时应使用哪种编码"
+}

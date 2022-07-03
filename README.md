@@ -27,6 +27,9 @@ After installation, its just required to enter the IP, port, so-called password 
 	### **WORK IN PROGRESS** 
 -->
 
+### 0.2.0-beta.0 (2022-07-03)
+* (chaozmc) update to admin v5 config and require min version of admin (>= 5.2.0)
+
 ### 0.1.0-beta.0 (2022-06-26)
 * (chaozmc) selectable response encoding (utf8 & latin1) & bit of debug-logging added
 

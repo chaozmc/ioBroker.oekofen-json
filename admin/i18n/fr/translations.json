@@ -1,0 +1,13 @@
+{
+    "Options": "Choix",
+    "OekoFEN IP": "OekoFEN IP",
+    "TCPPort": "Port TCP",
+    "Password": "Mot de passe",
+    "Poll-Interval (s)": "Intervalle(s) d'interrogation",
+    "Encoding": "Codage",
+    "The IP of your OekoFEN touch device in the network": "L'IP de votre appareil OekoFEN touch dans le réseau",
+    "The Port you've set on your OekoFEN touch device to listen on": "Le port que vous avez défini sur votre appareil tactile OekoFEN pour écouter",
+    "Enter the password you've set on your OekoFEN touch device": "Entrez le mot de passe que vous avez défini sur votre appareil tactile OekoFEN",
+    "How often should the adapter pull the updates from the device": "À quelle fréquence l'adaptateur doit-il extraire les mises à jour de l'appareil",
+    "Which encoding should be used when interpreting data from the device": "Quel encodage doit être utilisé lors de l'interprétation des données de l'appareil"
+}

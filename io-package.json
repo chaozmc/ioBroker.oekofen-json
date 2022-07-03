@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "oekofen-json",
-        "version": "0.1.0-beta.0",
+        "version": "0.2.0-beta.0",
         "news": {
+            "0.2.0-beta.0": {
+                "en": "update to admin v5 config and require min version of admin (>= 5.2.0)",
+                "de": "update auf admin v5 config und erfordern min-version von admin (>= 5.2.0)",
+                "ru": "обновление до админ v5 config и требуйте min версии админ (>= 5.2.0)",
+                "pt": "update to admin v5 config and require min version of admin (>= 5.2.0)",
+                "nl": "vertaling:",
+                "fr": "mettre à jour la configuration d'administration v5 et exiger la version min d'administrateur (>= 5.2.0)",
+                "it": "aggiornamento a admin v5 config e richiedono la versione min di admin (>= 5.2.0)",
+                "es": "actualizar a admin v5 config y requerir versión min de admin (= 5.2.0)",
+                "pl": "zaktualizowana wersja admin v5 wymaga minowej wersji admin (>= 5.2.0)",
+                "zh-cn": "摘 要"
+            },
             "0.1.0-beta.0": {
                 "en": "selectable response encoding (utf8 & latin1) & bit of debug-logging added",
                 "de": "wählbare antwortcodierung (utf8 & latin1) & bit debug-logging hinzugefügt",
@@ -98,9 +110,17 @@
         "connectionType": "local",
         "dataSource": "poll",
         "materialize": true,
+        "adminUI": {
+            "config": "json"
+        },
         "dependencies": [
             {
                 "js-controller": ">=2.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.2.0"
             }
         ]
     },
