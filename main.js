@@ -262,12 +262,15 @@ class OekofenJson extends utils.Adapter {
 
 					//get the object from ioBroker and find out if there's a factor which needs to be applied
 					this.getObject(key + "." + innerKey, function(err, obj) {
-						//Try to find out, if we're dealing with v3.10d
 						let tNewVal;
-						if (!isNaN(Number(jsonData[key][innerKey]))) {
+
+						// Find out which datatype the object in iobroker is and convert the value
+						if (obj.common.type === "number") {
 							tNewVal = Number(jsonData[key][innerKey]);
+						} else if (obj.common.type === "string") {
+							tNewVal = String(jsonData[key][innerKey]);
 						} else {
-							tNewVal = jsonData[key][innerKey];
+							throw("Datapoint (" + key + "." + innerKey + ") is without type. Data won't get updatet!");
 						}
 
 						if (obj && obj.native.factor) {
