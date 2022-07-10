@@ -13,19 +13,36 @@
 
 ## oekofen-json adapter for ioBroker
 
-Connect OekoFEN Pellematic via JSON to ioBroker
-This adapter tries to read the full version of the heaters json interface and create the objects on the fly with correct settings.
-Settings include the factor, min, max and unit (like celsius, ...). It also respects the read/write settings which the json interface supports. In case a datapoint name starts with L_ it will be created to read only in ioBroker. 
+### Description
 
-After installation, its just required to enter the IP, port, so-called password and the interval at which the adapter tries to pull the updates. 
+This adapter connects a OekoFEN heater with the new touch interface (also called [Pelletronic Touch](https://www.oekofen.com/en-gb/pelletronic-touch/)) to ioBroker. As OekoFEN implemented the JSON interface step by step and without public available documentation it should work at least with Version 3.10d and newer.
+As there are many combinations of heaters, solarmodules, layer storages, sterling engines etc. out there, this adapters tries to read all available datapoints from the interface and creates the objects on the fly at startup. 
+
+Read-Only datapoints are created as such as these starts mit L_ prefix in their name. Also converts the adapter the number's scaling according to the informations provided by the interface (factor attribute). For example, the heater deals with temperatures in the format XXX and factor 0.1, this will be converted by the adapter to XX.X on read operations and back to XXX on write operations.
 
 
+
+### Installation
+
+After installation, it's just required to enter 
+
+* the IP, 
+* TCP port, 
+* the "so-called" password 
+* and the interval 
+
+at which the adapter tries to pull the updates. 
+
+The adapter maintains the connected state, even there's no real permanent connection. If the device sends an error or the adapter isn't able to contact the OekoFEN controller it set's the connected state to false. For example this could happen if there are too many requests on the controller, which answers with HTTP 401 then. Under normal conditions the rate limit of the controller shouldn't be hit (2,5 seconds between requests). 
 
 ## Changelog
 <!--
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS** 
 -->
+
+### **WORK IN PROGRESS**
+* (chaozmc) Update README, prepare for first stable release
 
 ### 0.2.0-beta.0 (2022-07-03)
 * (chaozmc) update to admin v5 config and require min version of admin (>= 5.2.0)
