@@ -190,6 +190,10 @@ class OekofenJson extends utils.Adapter {
 			Object.keys(jsonData[key]).forEach(innerKey => {
 				let objType;
 				let objStates;
+				let objMin;
+				let objMax;
+				let objFactor;
+				let objUnit;
 				//try to find out, how the datapoint looks like
 				//For v3.10d try to find out if the current datapoint maybe is a wrongly stringified Number
 				if ((innerKey !== "name") && ((typeof jsonData[key][innerKey].val === "number") || !isNaN(Number(jsonData[key][innerKey].val)))) {
@@ -218,6 +222,45 @@ class OekofenJson extends utils.Adapter {
 					objType = "mixed";
 				}
 
+				if (jsonData[key][innerKey].factor)
+				{
+					objFactor = Number(jsonData[key][innerKey].factor);
+				} else {
+					objFactor = undefined;
+				}
+
+				if (jsonData[key][innerKey].min) {
+					if(objFactor) {
+						objMin = Number(jsonData[key][innerKey].min) * objFactor;
+					} else {
+						objMin = Number(jsonData[key][innerKey].min);
+					}
+				} else {
+					objMin = undefined;
+				}
+
+				if (jsonData[key][innerKey].max) {
+					if(objFactor) {
+						objMax = Number(jsonData[key][innerKey].max) * objFactor;
+					} else {
+						objMax = Number(jsonData[key][innerKey].max);
+					}
+				} else {
+					objMax = undefined;
+				}
+
+				if (jsonData[key][innerKey].unit) {
+					if (jsonData[key][innerKey].unit === "?C")
+					{
+						objUnit = "°C";
+					} else {
+						objUnit = jsonData[key][innerKey].unit;
+					}
+
+				} else {
+					objUnit = undefined;
+				}
+
 
 				//As v3.10d sends everything as string, convert everything which could be a number to a number.
 				//In later versions, Number(aNumber) should just return itself
@@ -232,14 +275,16 @@ class OekofenJson extends utils.Adapter {
 							read: true,
 							write: (innerKey.startsWith("L_") ? false : true),
 							states: objStates,
-							min: (jsonData[key][innerKey].factor && Number(jsonData[key][innerKey].factor) != 1 ? (Number(jsonData[key][innerKey].min) * Number(jsonData[key][innerKey].factor)) : (jsonData[key][innerKey].min ? Number(jsonData[key][innerKey].min) : undefined)) ,
-							max: (jsonData[key][innerKey].factor && Number(jsonData[key][innerKey].factor) != 1 ? (Number(jsonData[key][innerKey].max) * Number(jsonData[key][innerKey].factor)) : (jsonData[key][innerKey].max ? Number(jsonData[key][innerKey].max) : undefined)) ,
-							unit: (jsonData[key][innerKey].unit === "?C" ? "°C" : jsonData[key][innerKey].unit)
+							min: objMin,
+							max: objMax,
+							unit: objUnit
 						},
 						native: {
-							factor: (jsonData[key][innerKey].factor ? Number(jsonData[key][innerKey].factor) : undefined)
+							factor: objFactor
 						}
 					});
+
+
 
 					//subscribe only to writeable datapoints
 					if (!innerKey.startsWith("L_")) { this.subscribeStates(key + "." + innerKey); }
