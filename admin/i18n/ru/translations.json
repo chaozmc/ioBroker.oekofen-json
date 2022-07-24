@@ -4,7 +4,6 @@
     "TCPPort": "TCP-порт",
     "Password": "Пароль",
     "Poll-Interval (s)": "Интервал опроса (с)",
-    "Encoding": "Кодирование",
     "The IP of your OekoFEN touch device in the network": "IP-адрес вашего сенсорного устройства OekoFEN в сети.",
     "The Port you've set on your OekoFEN touch device to listen on": "Порт, который вы установили на сенсорном устройстве OekoFEN для прослушивания",
     "Enter the password you've set on your OekoFEN touch device": "Введите пароль, который вы установили на сенсорном устройстве OekoFEN.",

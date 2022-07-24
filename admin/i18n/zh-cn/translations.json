@@ -4,7 +4,6 @@
     "TCPPort": "TCP端口",
     "Password": "密码",
     "Poll-Interval (s)": "轮询间隔 (s)",
-    "Encoding": "编码",
     "The IP of your OekoFEN touch device in the network": "您的 OekoFEN 触控设备在网络中的 IP",
     "The Port you've set on your OekoFEN touch device to listen on": "您在 OekoFEN 触控设备上设置的监听端口",
     "Enter the password you've set on your OekoFEN touch device": "输入您在 OekoFEN 触控设备上设置的密码",

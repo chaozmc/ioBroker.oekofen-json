@@ -4,7 +4,6 @@
     "TCPPort": "TCPPoort",
     "Password": "Wachtwoord",
     "Poll-Interval (s)": "Poll-interval (s)",
-    "Encoding": "codering",
     "The IP of your OekoFEN touch device in the network": "Het IP-adres van uw OekoFEN-aanraakapparaat in het netwerk",
     "The Port you've set on your OekoFEN touch device to listen on": "De poort die u op uw OekoFEN-aanraakapparaat hebt ingesteld om naar te luisteren",
     "Enter the password you've set on your OekoFEN touch device": "Voer het wachtwoord in dat je hebt ingesteld op je OekoFEN-aanraakapparaat",

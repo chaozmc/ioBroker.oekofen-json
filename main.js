@@ -5,7 +5,6 @@ const axios = require("axios").default;
 let url = "";
 let updateDataInterval;
 let timeout1Scan;
-let selectedEncoding;
 
 class OekofenJson extends utils.Adapter {
 
@@ -30,21 +29,6 @@ class OekofenJson extends utils.Adapter {
 		//Build our request URL
 		url = "http://" + this.config.oekofenIp + ":" + this.config.oekofenPort + "/" + this.config.oekofenPassword;
 		this.log.debug("[onReady] Generated URL for requests: " + url);
-
-		switch (this.config.myUsedEncoding) {
-			case "latin1":
-				selectedEncoding = "latin1";
-				break;
-
-			case "utf8":
-				selectedEncoding = "utf8";
-				break;
-
-			default:
-				selectedEncoding = "latin1";
-				break;
-		}
-		this.log.debug("[onReady] Encoding from Admin-Config: " + this.config.myUsedEncoding + " // Effective used encoding: " + selectedEncoding);
 
 
 		//create the connection-state variable
@@ -118,12 +102,13 @@ class OekofenJson extends utils.Adapter {
 	}
 
 
+
 	/**
 	 * @param {string} url
 	 */
 	async initialScan(url) {
-		this.log.debug("[initialScan] called with url: " + url + " and encoding: " + selectedEncoding);
-		await axios.get(url + "/all??", { responseEncoding: selectedEncoding })
+		this.log.debug("[initialScan] called with url: " + url + " and encoding: latin1");
+		await axios.get(url + "/all??", { responseEncoding: "latin1" })
 			.then(response => {
 				this.log.debug("[initialScan_axios.get] got HTTP/200 response, call parseDataOnStartupAndCreateObjects with response.data");
 				this.parseDataOnStartupAndCreateObjects(response.data);
@@ -146,9 +131,9 @@ class OekofenJson extends utils.Adapter {
 	 * @param {string} url
 	 */
 	async updateData(url) {
-		this.log.debug("[updateData] called with url: " + url + " and encoding: " + selectedEncoding);
+		this.log.debug("[updateData] called with url: " + url + " and encoding: latin1");
 		//for a normale update, we'll use the normal /all path, this will reduce transmitted data to about half the size
-		axios.get(url + "/all", { responseEncoding: selectedEncoding })
+		axios.get(url + "/all", { responseEncoding: "latin1" })
 			.then(response => {
 				this.log.debug("[updateData_axios.get] got HTTP/200 response, call parseDataAndSetValues with response.data");
 				this.parseDataAndSetValues(response.data, this);
