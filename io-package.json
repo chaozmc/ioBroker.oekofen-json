@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "oekofen-json",
-        "version": "0.2.0-beta.0",
+        "version": "0.2.0",
         "news": {
+            "0.2.0": {
+                "en": "Update README, prepare for first stable release\nFix Objects with min/max null value (Issue #8)\nRemoved selectable encoding\nAdded v3.10d compatibility",
+                "de": "Update README, Vorbereitung auf die erste stabile Veröffentlichung\nObjekte mit min/max Nullwert beheben (Issue #8)\nEntfernte wählbare Kodierung\nZusätzlich v3.10d Kompatibilität",
+                "ru": "Обновить README, подготовиться к первому стабильному релизу\nFix Объекты с мин/макс null значение (Issue #8)\nУдалено отборное кодирование\nДобавлена совместимость v3.10d",
+                "pt": "Atualizar README, prepare-se para a primeira versão estável\nCorrigir objetos com valor nulo min/max (Issue #8)\nCodificação selecionável removida\nAdicionado compatibilidade v3.10d",
+                "nl": "Vertaling:\nVertaling:\nVerwijderbare code\nVertaling:",
+                "fr": "Mettre à jour le README, préparer pour la première version stable\nObjets fixes avec valeur nulle min/max (Issue #8)\nEncodage sélectionnable enlevé\nAjout de la compatibilité v3.10d",
+                "it": "Aggiornare README, prepararsi per il primo rilascio stabile\nRisolvere oggetti con valore minimo/max nullo (Essue #8)\nCodifica selezionabile eliminata\nAggiunto v3.10d compatibilità",
+                "es": "Actualizar README, preparar para la primera liberación estable\nFijar objetos con valor nulo min/max (Isue #8)\nCodificación selectiva\nCompatibilidad añadida v3.10d",
+                "pl": "Update README przygotowuje się do pierwszego stabilnego wydania\nFix Objects with min/max null value (ang.)\nRemove wybrane kodowanie\nAdded v3.10d",
+                "zh-cn": "更新中小企业,准备首次稳定释放\n具有min/max无效价值的ix个物体(编号8)\n取消可选择的浮动\n增 容量"
+            },
             "0.2.0-beta.0": {
                 "en": "update to admin v5 config and require min version of admin (>= 5.2.0)",
                 "de": "update auf admin v5 config und erfordern min-version von admin (>= 5.2.0)",

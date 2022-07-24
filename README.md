@@ -41,7 +41,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
-### **WORK IN PROGRESS**
+### 0.2.0 (2022-07-24)
 * (chaozmc) Update README, prepare for first stable release
 * (chaozmc) Fix Objects with min/max null value (Issue #8)
 * (chaozmc) Removed selectable encoding
