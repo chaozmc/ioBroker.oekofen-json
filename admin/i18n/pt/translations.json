@@ -4,7 +4,6 @@
     "TCPPort": "TCPPort",
     "Password": "Senha",
     "Poll-Interval (s)": "Intervalo(s) de sondagem",
-    "Encoding": "Codificação",
     "The IP of your OekoFEN touch device in the network": "O IP do seu dispositivo de toque OekoFEN na rede",
     "The Port you've set on your OekoFEN touch device to listen on": "A porta que você definiu no seu dispositivo de toque OekoFEN para ouvir",
     "Enter the password you've set on your OekoFEN touch device": "Digite a senha que você definiu no seu dispositivo de toque OekoFEN",

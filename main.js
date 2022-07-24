@@ -5,7 +5,6 @@ const axios = require("axios").default;
 let url = "";
 let updateDataInterval;
 let timeout1Scan;
-let selectedEncoding;
 
 class OekofenJson extends utils.Adapter {
 
@@ -30,21 +29,6 @@ class OekofenJson extends utils.Adapter {
 		//Build our request URL
 		url = "http://" + this.config.oekofenIp + ":" + this.config.oekofenPort + "/" + this.config.oekofenPassword;
 		this.log.debug("[onReady] Generated URL for requests: " + url);
-
-		switch (this.config.myUsedEncoding) {
-			case "latin1":
-				selectedEncoding = "latin1";
-				break;
-
-			case "utf8":
-				selectedEncoding = "utf8";
-				break;
-
-			default:
-				selectedEncoding = "latin1";
-				break;
-		}
-		this.log.debug("[onReady] Encoding from Admin-Config: " + this.config.myUsedEncoding + " // Effective used encoding: " + selectedEncoding);
 
 
 		//create the connection-state variable
@@ -118,12 +102,13 @@ class OekofenJson extends utils.Adapter {
 	}
 
 
+
 	/**
 	 * @param {string} url
 	 */
 	async initialScan(url) {
-		this.log.debug("[initialScan] called with url: " + url + " and encoding: " + selectedEncoding);
-		await axios.get(url + "/all??", { responseEncoding: selectedEncoding })
+		this.log.debug("[initialScan] called with url: " + url + " and encoding: latin1");
+		await axios.get(url + "/all??", { responseEncoding: "latin1" })
 			.then(response => {
 				this.log.debug("[initialScan_axios.get] got HTTP/200 response, call parseDataOnStartupAndCreateObjects with response.data");
 				this.parseDataOnStartupAndCreateObjects(response.data);
@@ -146,9 +131,9 @@ class OekofenJson extends utils.Adapter {
 	 * @param {string} url
 	 */
 	async updateData(url) {
-		this.log.debug("[updateData] called with url: " + url + " and encoding: " + selectedEncoding);
+		this.log.debug("[updateData] called with url: " + url + " and encoding: latin1");
 		//for a normale update, we'll use the normal /all path, this will reduce transmitted data to about half the size
-		axios.get(url + "/all", { responseEncoding: selectedEncoding })
+		axios.get(url + "/all", { responseEncoding: "latin1" })
 			.then(response => {
 				this.log.debug("[updateData_axios.get] got HTTP/200 response, call parseDataAndSetValues with response.data");
 				this.parseDataAndSetValues(response.data, this);
@@ -190,8 +175,13 @@ class OekofenJson extends utils.Adapter {
 			Object.keys(jsonData[key]).forEach(innerKey => {
 				let objType;
 				let objStates;
+				let objMin;
+				let objMax;
+				let objFactor;
+				let objUnit;
 				//try to find out, how the datapoint looks like
-				if (typeof jsonData[key][innerKey].val === "number") {
+				//For v3.10d try to find out if the current datapoint maybe is a wrongly stringified Number
+				if ((innerKey !== "name") && ((typeof jsonData[key][innerKey].val === "number") || !isNaN(Number(jsonData[key][innerKey].val)))) {
 					if (jsonData[key][innerKey].format === undefined) {
 						objType = "number";
 					} else {
@@ -209,7 +199,7 @@ class OekofenJson extends utils.Adapter {
 						}, []);
 						objStates = Object.fromEntries(output);
 					}
-				} else if(typeof jsonData[key][innerKey].val === "string") {
+				} else if(typeof jsonData[key][innerKey].val === "string" || innerKey === "name") {
 					objType = "string";
 				} else if(jsonData[key][innerKey].val === undefined) {
 					objType = "string";
@@ -217,6 +207,48 @@ class OekofenJson extends utils.Adapter {
 					objType = "mixed";
 				}
 
+				if (jsonData[key][innerKey].factor)
+				{
+					objFactor = Number(jsonData[key][innerKey].factor);
+				} else {
+					objFactor = undefined;
+				}
+
+				if (jsonData[key][innerKey].min) {
+					if(objFactor) {
+						objMin = Number(jsonData[key][innerKey].min) * objFactor;
+					} else {
+						objMin = Number(jsonData[key][innerKey].min);
+					}
+				} else {
+					objMin = undefined;
+				}
+
+				if (jsonData[key][innerKey].max) {
+					if(objFactor) {
+						objMax = Number(jsonData[key][innerKey].max) * objFactor;
+					} else {
+						objMax = Number(jsonData[key][innerKey].max);
+					}
+				} else {
+					objMax = undefined;
+				}
+
+				if (jsonData[key][innerKey].unit) {
+					if (jsonData[key][innerKey].unit === "?C")
+					{
+						objUnit = "°C";
+					} else {
+						objUnit = jsonData[key][innerKey].unit;
+					}
+
+				} else {
+					objUnit = undefined;
+				}
+
+
+				//As v3.10d sends everything as string, convert everything which could be a number to a number.
+				//In later versions, Number(aNumber) should just return itself
 				//ignore the info-datapoint; its useless for iobroker
 				if (!innerKey.endsWith("_info")) {
 					this.setObjectNotExists(key + "." + innerKey, {
@@ -228,14 +260,16 @@ class OekofenJson extends utils.Adapter {
 							read: true,
 							write: (innerKey.startsWith("L_") ? false : true),
 							states: objStates,
-							min: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].min * jsonData[key][innerKey].factor) : jsonData[key][innerKey].min ) ,
-							max: (jsonData[key][innerKey].factor && jsonData[key][innerKey].factor != 1 ? (jsonData[key][innerKey].max * jsonData[key][innerKey].factor) : jsonData[key][innerKey].max ) ,
-							unit: jsonData[key][innerKey].unit
+							min: objMin,
+							max: objMax,
+							unit: objUnit
 						},
 						native: {
-							factor: jsonData[key][innerKey].factor
+							factor: objFactor
 						}
 					});
+
+
 
 					//subscribe only to writeable datapoints
 					if (!innerKey.startsWith("L_")) { this.subscribeStates(key + "." + innerKey); }
@@ -259,10 +293,21 @@ class OekofenJson extends utils.Adapter {
 
 					//get the object from ioBroker and find out if there's a factor which needs to be applied
 					this.getObject(key + "." + innerKey, function(err, obj) {
-						if (obj && obj.native.factor) {
-							instanceObject.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey] * obj.native.factor, ack: true});
+						let tNewVal;
+
+						// Find out which datatype the object in iobroker is and convert the value
+						if (obj.common.type === "number") {
+							tNewVal = Number(jsonData[key][innerKey]);
+						} else if (obj.common.type === "string") {
+							tNewVal = String(jsonData[key][innerKey]);
 						} else {
-							instanceObject.setStateAsync(key + "." + innerKey, {val: jsonData[key][innerKey], ack: true});
+							throw("Datapoint (" + key + "." + innerKey + ") is without type. Data won't get updatet!");
+						}
+
+						if (obj && obj.native.factor) {
+							instanceObject.setStateAsync(key + "." + innerKey, {val: tNewVal * obj.native.factor, ack: true});
+						} else {
+							instanceObject.setStateAsync(key + "." + innerKey, {val: tNewVal, ack: true});
 						}
 					});
 

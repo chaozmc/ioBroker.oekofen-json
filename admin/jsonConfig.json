@@ -43,28 +43,6 @@
                     "lg": 6,
                     "label": "Poll-Interval (s)",
                     "help": "How often should the adapter pull the updates from the device"
-                },
-                "myUsedEncoding" : {
-                    "type": "select",
-                    "options": [
-                        {
-                            "label": {
-                                "en": "latin1"
-                            },
-                            "value": "latin1"
-                        },
-                        {
-                            "label": {
-                                "en": "utf8"
-                            },
-                            "value": "utf8"
-                        }
-                    ],
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
-                    "label": "Encoding",
-                    "help": "Which encoding should be used when interpreting data from the device"
                 }
             }
         }
