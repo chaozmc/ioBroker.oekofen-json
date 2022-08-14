@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "oekofen-json",
-        "version": "0.2.0",
+        "version": "0.2.1",
         "news": {
+            "0.2.1": {
+                "en": "clear interval on triggered update - fixes #10\nrewrite update & initialScan - fixes #11 and #12\nstore password encrypted - fixes #14\ncreate static objects via io-package.json - fixes #13",
+                "de": "klares intervall auf ausgelöstem update - repariert #10\nrewriting Update & initial Scan - Fixes #11 und #12\nspeicherkennwort verschlüsselt - fixes #14\nstatische objekte über io-package erstellen. json - behebungen #13",
+                "ru": "понятный интервал при запуске обновления - исправления #10\nпереписать обновление & начальный Сканирование - исправления #11 и #12\nхранить пароль зашифрован - исправления #14\nсоздавать статические объекты через io-package. джсон - исправления #13",
+                "pt": "intervalo claro na atualização acionado - correções #10\nreescrever atualização e inicial Scan - correções #11 e #12\nstore password criptografado - correções #14\ncriar objetos estáticos via io-package. o que foi? - correções #13",
+                "nl": "#10\nvertaling: Scan - fixes #11 and12\nvertaling:\nmaak statische objecten via io-package. json - #13",
+                "fr": "intervalle clair sur la mise à jour déclenchée - corrections #10\nrewrite update \" initial Scan - corrige #11 et #12\nstock mot de passe crypté - corrige #14\ncréer des objets statiques via io-package. json - corrige #13",
+                "it": "intervallo chiaro su aggiornamento attivato - correzioni #10\naggiornamento riscrittura & iniziale Scan - correzioni #11 e #12\nmemorizzare la password crittografata - correzioni #14\ncreare oggetti statici tramite io-package. j. - correzioni #13",
+                "es": "intervalo claro en la actualización activada - fija #10\nreescribir la actualización inicial Scan - correcciones #11 y #12\nguardar contraseña encriptada - correcciones #14\ncrear objetos estáticos a través de io-paquete. json - arreglos #13",
+                "pl": "oczywiste przedziały na uaktualnionej aktualizacji – naprawy #10\nrewrite i inicjacja Skandy – urządzenie #11 i #12\nprzechowywać hasła zaszyfrowane – naprawy #14\ntworzy statyczne obiekty poprzez io-package. json - naprawa #13",
+                "zh-cn": "a. 触发最新资料的明确的间隔 - 10\n单元更新和初步更新 Scan-ixing #11 and #12\nd. 装有密码加密 - 包装\n通过碘剂制造静态物体。 json - 确定编号13"
+            },
             "0.2.0": {
                 "en": "Update README, prepare for first stable release\nFix Objects with min/max null value (Issue #8)\nRemoved selectable encoding\nAdded v3.10d compatibility",
                 "de": "Update README, Vorbereitung auf die erste stabile Veröffentlichung\nObjekte mit min/max Nullwert beheben (Issue #8)\nEntfernte wählbare Kodierung\nZusätzlich v3.10d Kompatibilität",
@@ -175,11 +187,11 @@
             "type": "state",
             "common": {
                 "name": "rescan",
-				"type": "boolean",
-				"role": "button",
-				"desc": "Rescan JSON and create (missing) datapoints",
-				"read": true,
-				"write": true
+                "type": "boolean",
+                "role": "button",
+                "desc": "Rescan JSON and create (missing) datapoints",
+                "read": true,
+                "write": true
             },
             "native": {}
         },
@@ -188,11 +200,11 @@
             "type": "state",
             "common": {
                 "name": "update",
-				"type": "boolean",
-				"role": "button",
-				"desc": "Trigger an update of all states now",
-				"read": true,
-				"write": true
+                "type": "boolean",
+                "role": "button",
+                "desc": "Trigger an update of all states now",
+                "read": true,
+                "write": true
             },
             "native": {}
         }

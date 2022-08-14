@@ -41,7 +41,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
-### **WORK IN PROGRESS** 
+### 0.2.1 (2022-08-15) 
 * (chaozmc) clear interval on triggered update - fixes #10
 * (chaozmc) rewrite update & initialScan - fixes #11 and #12
 * (chaozmc) store password encrypted - fixes #14
