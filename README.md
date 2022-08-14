@@ -41,6 +41,12 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
+### **WORK IN PROGRESS** 
+* (chaozmc) clear interval on triggered update - fixes #10
+* (chaozmc) rewrite update & initialScan - fixes #11 and #12
+* (chaozmc) store password encrypted - fixes #14
+* (chaozmc) create static objects via io-package.json - fixes #13
+
 ### 0.2.0 (2022-07-24)
 * (chaozmc) Update README, prepare for first stable release
 * (chaozmc) Fix Objects with min/max null value (Issue #8)

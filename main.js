@@ -46,37 +46,38 @@ class OekofenJson extends utils.Adapter {
 			native: {},
 		});
 
-		//create a rescan state which will trigger a complete rescan of all datapoints, like it's done on adapter load
-		this.log.debug("[onReady] create rescan datapoint");
-		await this.setObjectNotExistsAsync("info.rescan", {
-			type: "state",
-			common: {
-				name: "rescan",
-				type: "boolean",
-				role: "button",
-				desc: "Rescan JSON and create (missing) datapoints",
-				read: true,
-				write: true,
-			},
-			native: {},
-		});
+		// //create a rescan state which will trigger a complete rescan of all datapoints, like it's done on adapter load
+		// this.log.debug("[onReady] create rescan datapoint");
+		// await this.setObjectNotExistsAsync("info.rescan", {
+		// 	type: "state",
+		// 	common: {
+		// 		name: "rescan",
+		// 		type: "boolean",
+		// 		role: "button",
+		// 		desc: "Rescan JSON and create (missing) datapoints",
+		// 		read: true,
+		// 		write: true,
+		// 	},
+		// 	native: {},
+		// });
 
 
 
-		//create an update state, which will trigger an update of all datapoints
-		this.log.debug("[onReady] create update datapoint");
-		await this.setObjectNotExistsAsync("info.update", {
-			type: "state",
-			common: {
-				name: "update",
-				type: "boolean",
-				role: "button",
-				desc: "Trigger an update of all states now",
-				read: true,
-				write: true,
-			},
-			native: {},
-		});
+
+		// //create an update state, which will trigger an update of all datapoints
+		// this.log.debug("[onReady] create update datapoint");
+		// await this.setObjectNotExistsAsync("info.update", {
+		// 	type: "state",
+		// 	common: {
+		// 		name: "update",
+		// 		type: "boolean",
+		// 		role: "button",
+		// 		desc: "Trigger an update of all states now",
+		// 		read: true,
+		// 		write: true,
+		// 	},
+		// 	native: {},
+		// });
 
 
 		this.log.debug("[onReady] subscribed to rescan datapoint");
@@ -108,24 +109,28 @@ class OekofenJson extends utils.Adapter {
 	 */
 	async initialScan(url) {
 		this.log.debug("[initialScan] called with url: " + url + " and encoding: latin1");
-		await axios.get(url + "/all??", { responseEncoding: "latin1" })
-			.then(response => {
+		try {
+			const response = await axios.get(url + "/all??", { responseEncoding: "latin1" });
+			if (response.status === 200) {
 				this.log.debug("[initialScan_axios.get] got HTTP/200 response, call parseDataOnStartupAndCreateObjects with response.data");
 				this.parseDataOnStartupAndCreateObjects(response.data);
 				//Set connection to true, if get-request was successful
 				this.log.debug("[initialScan_axios.get] set info.connection to true as request was successful");
 				this.setStateAsync("info.connection", { val: true, ack: true });
-			})
-			.catch(error => {
-				this.log.error("[initialScan_axios.get.catch] " + error);
-				//Set connection to false in case of errors
-				this.log.debug("[initialScan_axios.get.catch] error while request has occured, setting info.connection to false");
-				this.setStateAsync("info.connection", { val: false, ack: true });
-			});
-		this.log.debug("[initialScan] set updateDataInterval to " + Number.parseInt(this.config.myRequestInterval)*1000);
-		updateDataInterval = setInterval(async () => await this.updateData(url), Number.parseInt(this.config.myRequestInterval)*1000);
+				this.log.debug("[initialScan] set updateDataInterval to " + Number.parseInt(this.config.myRequestInterval)*1000);
+				updateDataInterval = setInterval(async () => await this.updateData(url), Number.parseInt(this.config.myRequestInterval)*1000);
+			} else {
+				throw "axios response code " + response.status;
+			}
+		} catch (error) {
+			this.log.error("[initialScan_axios.get.catch] " + error + " - Adapter exiting now.");
+			//Set connection to false in case of errors
+			this.log.debug("[initialScan_axios.get.catch] error while initial request has occured, disable adapter.");
+			this.setStateAsync("info.connection", { val: false, ack: true });
+			this.disable();
+			return;
+		}
 	}
-
 
 	/**
 	 * @param {string} url
@@ -133,20 +138,23 @@ class OekofenJson extends utils.Adapter {
 	async updateData(url) {
 		this.log.debug("[updateData] called with url: " + url + " and encoding: latin1");
 		//for a normale update, we'll use the normal /all path, this will reduce transmitted data to about half the size
-		axios.get(url + "/all", { responseEncoding: "latin1" })
-			.then(response => {
+		try {
+			const response = await axios.get(url + "/all", { responseEncoding: "latin1" });
+			if (response.status === 200) {
 				this.log.debug("[updateData_axios.get] got HTTP/200 response, call parseDataAndSetValues with response.data");
 				this.parseDataAndSetValues(response.data, this);
 				//Set connection to true, if get-request was successful
 				this.log.debug("[updateData_axios.get] set info.connection to true as request was successful");
 				this.setStateAsync("info.connection", { val: true, ack: true });
-			})
-			.catch(error => {
-				this.log.error("[updateData_axios.get.catch] " + error);
-				//Set connection to false in case of errors
-				this.log.debug("[updateData_axios.get.catch] error while request has occured, setting info.connection to false");
-				this.setStateAsync("info.connection", { val: false, ack: true });
-			});
+			} else {
+				throw "axios response code " + response.status;
+			}
+		} catch (error) {
+			this.log.error("[updateData_axios.get.catch] " + error);
+			//Set connection to false in case of errors
+			this.log.debug("[updateData_axios.get.catch] error while request has occured, setting info.connection to false");
+			this.setStateAsync("info.connection", { val: false, ack: true });
+		}
 	}
 
 	/**
@@ -269,8 +277,6 @@ class OekofenJson extends utils.Adapter {
 						}
 					});
 
-
-
 					//subscribe only to writeable datapoints
 					if (!innerKey.startsWith("L_")) { this.subscribeStates(key + "." + innerKey); }
 				}
@@ -345,6 +351,7 @@ class OekofenJson extends utils.Adapter {
 	async onStateChange(id, state) {
 		//is the onStateChange called by update or rescan trigger?
 		if (id === this.namespace + ".info.rescan" && !state.ack && state.val) {
+			clearInterval(updateDataInterval);
 			this.log.debug("Rescan of all datapoints initiated");
 			await this.initialScan(url);
 			await this.setStateAsync(id, false, true);
@@ -414,7 +421,7 @@ class OekofenJson extends utils.Adapter {
 		const urlForUpdate = url + "/" + stateId.replace(this.namespace, "").substring(1) + "=" + newValue;
 		try {
 			const res = await axios.get(urlForUpdate, { responseEncoding: "latin1" });
-			if (res.status === 200 && !res.data.startsWith("Failure")) {
+			if (res.status === 200) {
 				return true;
 			} else {
 				this.log.error("[sendUpdateToOekofen] Error while making Webrequest: Webserver rejected request");

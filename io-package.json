@@ -135,12 +135,66 @@
             }
         ]
     },
+    "encryptedNative": [
+        "oekofenPassword"
+    ],
+    "protectedNative": [
+        "oekofenPassword"
+    ],
     "native": {
         "oekofenIp": "1.2.3.4",
         "oekofenPort": "8080",
-        "oekofenPassword": "secret",
+        "oekofenPassword": "",
         "myRequestInterval": "30"
     },
     "objects": [],
-    "instanceObjects": []
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Adapter connected to OekoFEN",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.rescan",
+            "type": "state",
+            "common": {
+                "name": "rescan",
+				"type": "boolean",
+				"role": "button",
+				"desc": "Rescan JSON and create (missing) datapoints",
+				"read": true,
+				"write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.update",
+            "type": "state",
+            "common": {
+                "name": "update",
+				"type": "boolean",
+				"role": "button",
+				"desc": "Trigger an update of all states now",
+				"read": true,
+				"write": true
+            },
+            "native": {}
+        }
+    ]
 }
