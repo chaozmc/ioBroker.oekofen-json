@@ -31,20 +31,20 @@ class OekofenJson extends utils.Adapter {
 		this.log.debug("[onReady] Generated URL for requests: " + url);
 
 
-		//create the connection-state variable
-		this.log.debug("[onReady] create connection datapoint");
-		await this.setObjectNotExistsAsync("info.connection", {
-			type: "state",
-			common: {
-				name: "connection",
-				type: "boolean",
-				role: "indicator",
-				desc: "Test",
-				read: true,
-				write: false,
-			},
-			native: {},
-		});
+		// //create the connection-state variable
+		// this.log.debug("[onReady] create connection datapoint");
+		// await this.setObjectNotExistsAsync("info.connection", {
+		// 	type: "state",
+		// 	common: {
+		// 		name: "connection",
+		// 		type: "boolean",
+		// 		role: "indicator",
+		// 		desc: "Test",
+		// 		read: true,
+		// 		write: false,
+		// 	},
+		// 	native: {},
+		// });
 
 		// //create a rescan state which will trigger a complete rescan of all datapoints, like it's done on adapter load
 		// this.log.debug("[onReady] create rescan datapoint");
@@ -113,7 +113,7 @@ class OekofenJson extends utils.Adapter {
 			const response = await axios.get(url + "/all??", { responseEncoding: "latin1" });
 			if (response.status === 200) {
 				this.log.debug("[initialScan_axios.get] got HTTP/200 response, call parseDataOnStartupAndCreateObjects with response.data");
-				this.parseDataOnStartupAndCreateObjects(response.data);
+				await this.parseDataOnStartupAndCreateObjects(response.data);
 				//Set connection to true, if get-request was successful
 				this.log.debug("[initialScan_axios.get] set info.connection to true as request was successful");
 				this.setStateAsync("info.connection", { val: true, ack: true });
@@ -142,7 +142,7 @@ class OekofenJson extends utils.Adapter {
 			const response = await axios.get(url + "/all", { responseEncoding: "latin1" });
 			if (response.status === 200) {
 				this.log.debug("[updateData_axios.get] got HTTP/200 response, call parseDataAndSetValues with response.data");
-				this.parseDataAndSetValues(response.data, this);
+				await this.parseDataAndSetValues(response.data, this);
 				//Set connection to true, if get-request was successful
 				this.log.debug("[updateData_axios.get] set info.connection to true as request was successful");
 				this.setStateAsync("info.connection", { val: true, ack: true });
@@ -160,7 +160,7 @@ class OekofenJson extends utils.Adapter {
 	/**
 	 * @param {object} jsonData
 	 */
-	parseDataOnStartupAndCreateObjects(jsonData) {
+	async parseDataOnStartupAndCreateObjects(jsonData) {
 		Object.keys(jsonData).forEach(key => {
 			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
 			if (key === "forecast") {
@@ -289,7 +289,7 @@ class OekofenJson extends utils.Adapter {
 	 * @param {object} jsonData
 	 * @param {object} instanceObject
 	 */
-	parseDataAndSetValues(jsonData, instanceObject) {
+	async parseDataAndSetValues(jsonData, instanceObject) {
 		Object.keys(jsonData).forEach(key => {
 			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
 			if (key === "forecast") {return;}
