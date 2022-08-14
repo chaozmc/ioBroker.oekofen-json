@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "oekofen-json",
-        "version": "0.2.1",
+        "version": "0.2.2",
         "news": {
+            "0.2.2": {
+                "en": "changed objects-creation and value-updates to async/await",
+                "de": "geänderte objekt-erstellung und wert-updates zu async/await",
+                "ru": "измененные объекты-создание и ценности-обновления для async/await",
+                "pt": "alterou a criação de objetos e datas de valor para async/await",
+                "nl": "veranderde objecten-creatie en waarde-updates naar async/a wacht",
+                "fr": "changement d'objet-création et de valeur-updates à async/await",
+                "it": "modificato oggetti-creazione e valore-aggiornamento ad asinc/await",
+                "es": "cambio de la creación de objetos y actualizaciones de valor a async/await",
+                "pl": "zmienione obiekty i aktualizacja wartości do asynchronacji/await",
+                "zh-cn": "b. 修改目标的设定和增值日期"
+            },
             "0.2.1": {
                 "en": "clear interval on triggered update - fixes #10\nrewrite update & initialScan - fixes #11 and #12\nstore password encrypted - fixes #14\ncreate static objects via io-package.json - fixes #13",
                 "de": "klares intervall auf ausgelöstem update - repariert #10\nrewriting Update & initial Scan - Fixes #11 und #12\nspeicherkennwort verschlüsselt - fixes #14\nstatische objekte über io-package erstellen. json - behebungen #13",

@@ -41,7 +41,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
-### **WORK IN PROGRESS** 
+### 0.2.2 (2022-08-15) 
 * (chaozmc) changed objects-creation and value-updates to async/await
 
 ### 0.2.1 (2022-08-15) 
