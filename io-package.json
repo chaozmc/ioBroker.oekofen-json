@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "oekofen-json",
-        "version": "0.2.2",
+        "version": "0.2.3",
         "news": {
+            "0.2.3": {
+                "en": "changed initialScan function to use createObjectNotExistsAsync instead",
+                "de": "geänderter Anfang Scan-Funktion zu verwenden erstellen ObjectNotExistsAsync statt",
+                "ru": "измененный начальный Функция сканирования для использования создать ОбъектNotExistsAsync вместо",
+                "pt": "inicial alterada Função de digitalização para usar criar ObjectNotExistsAsync em vez",
+                "nl": "veranderde Scanfuncties gebruiken creatie Vertaling:",
+                "fr": "changement initial Fonction Scan d'utilisation créer ObjectNotExistsAsync à la place",
+                "it": "cambiato iniziale Funzione di scansione per utilizzare ObjectNotExistsAsync",
+                "es": "cambios iniciales Función de exploración para utilizar crear ObjectNotExistsAsync en su lugar",
+                "pl": "zmienić Skandalowa funkcja służąca do tworzenia konstrukcji ObjectExistsAsync",
+                "uk": "зміна початкового Функція сканування для створення Об'єктNotExistsAsync замість",
+                "zh-cn": "初步变化 Scan 创建使用功能 反对"
+            },
             "0.2.2": {
                 "en": "changed objects-creation and value-updates to async/await",
                 "de": "geänderte objekt-erstellung und wert-updates zu async/await",

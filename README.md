@@ -41,7 +41,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
-### **WORK IN PROGRESS** 
+### 0.2.3 (2022-10-29) 
 * (chaozmc) changed initialScan function to use createObjectNotExistsAsync instead
 
 ### 0.2.2 (2022-08-15) 
@@ -61,9 +61,6 @@ The adapter maintains the connected state, even there's no real permanent connec
 
 ### 0.2.0-beta.0 (2022-07-03)
 * (chaozmc) update to admin v5 config and require min version of admin (>= 5.2.0)
-
-### 0.1.0-beta.0 (2022-06-26)
-* (chaozmc) selectable response encoding (utf8 & latin1) & bit of debug-logging added
 
 ### **0.0.3**
 * (chaozmc) code cleanup, trigger for update & rescan
