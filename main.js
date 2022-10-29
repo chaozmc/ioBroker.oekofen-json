@@ -30,56 +30,6 @@ class OekofenJson extends utils.Adapter {
 		url = "http://" + this.config.oekofenIp + ":" + this.config.oekofenPort + "/" + this.config.oekofenPassword;
 		this.log.debug("[onReady] Generated URL for requests: " + url);
 
-
-		// //create the connection-state variable
-		// this.log.debug("[onReady] create connection datapoint");
-		// await this.setObjectNotExistsAsync("info.connection", {
-		// 	type: "state",
-		// 	common: {
-		// 		name: "connection",
-		// 		type: "boolean",
-		// 		role: "indicator",
-		// 		desc: "Test",
-		// 		read: true,
-		// 		write: false,
-		// 	},
-		// 	native: {},
-		// });
-
-		// //create a rescan state which will trigger a complete rescan of all datapoints, like it's done on adapter load
-		// this.log.debug("[onReady] create rescan datapoint");
-		// await this.setObjectNotExistsAsync("info.rescan", {
-		// 	type: "state",
-		// 	common: {
-		// 		name: "rescan",
-		// 		type: "boolean",
-		// 		role: "button",
-		// 		desc: "Rescan JSON and create (missing) datapoints",
-		// 		read: true,
-		// 		write: true,
-		// 	},
-		// 	native: {},
-		// });
-
-
-
-
-		// //create an update state, which will trigger an update of all datapoints
-		// this.log.debug("[onReady] create update datapoint");
-		// await this.setObjectNotExistsAsync("info.update", {
-		// 	type: "state",
-		// 	common: {
-		// 		name: "update",
-		// 		type: "boolean",
-		// 		role: "button",
-		// 		desc: "Trigger an update of all states now",
-		// 		read: true,
-		// 		write: true,
-		// 	},
-		// 	native: {},
-		// });
-
-
 		this.log.debug("[onReady] subscribed to rescan datapoint");
 		this.subscribeStates("info.rescan");
 
@@ -161,13 +111,13 @@ class OekofenJson extends utils.Adapter {
 	 * @param {object} jsonData
 	 */
 	async parseDataOnStartupAndCreateObjects(jsonData) {
-		Object.keys(jsonData).forEach(key => {
+		Object.keys(jsonData).forEach(async key => {
 			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
 			if (key === "forecast") {
 				return;
 			} else {
 				//create the top-level-keys as channels
-				this.setObjectNotExists(key, {
+				await this.setObjectNotExistsAsync(key, {
 					type: "channel",
 					common: {
 						name: key,
@@ -180,7 +130,7 @@ class OekofenJson extends utils.Adapter {
 
 
 			//iterate through each child of the top-level-keys
-			Object.keys(jsonData[key]).forEach(innerKey => {
+			Object.keys(jsonData[key]).forEach(async innerKey => {
 				let objType;
 				let objStates;
 				let objMin;
@@ -259,7 +209,7 @@ class OekofenJson extends utils.Adapter {
 				//In later versions, Number(aNumber) should just return itself
 				//ignore the info-datapoint; its useless for iobroker
 				if (!innerKey.endsWith("_info")) {
-					this.setObjectNotExists(key + "." + innerKey, {
+					await this.setObjectNotExistsAsync(key + "." + innerKey, {
 						type: "state",
 						common: {
 							name: innerKey,
