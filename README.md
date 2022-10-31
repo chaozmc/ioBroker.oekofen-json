@@ -41,7 +41,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
-### **WORK IN PROGRESS** 
+### 0.2.4 (2022-10-31) 
 * (chaozmc) changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup
 
 ### 0.2.3 (2022-10-29) 
@@ -61,9 +61,6 @@ The adapter maintains the connected state, even there's no real permanent connec
 * (chaozmc) Fix Objects with min/max null value (Issue #8)
 * (chaozmc) Removed selectable encoding
 * (chaozmc) Added v3.10d compatibility
-
-### 0.2.0-beta.0 (2022-07-03)
-* (chaozmc) update to admin v5 config and require min version of admin (>= 5.2.0)
 
 ### **0.0.3**
 * (chaozmc) code cleanup, trigger for update & rescan
