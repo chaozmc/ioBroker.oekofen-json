@@ -41,6 +41,9 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
+### **WORK IN PROGRESS** 
+* (chaozmc) changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup
+
 ### 0.2.3 (2022-10-29) 
 * (chaozmc) changed initialScan function to use createObjectNotExistsAsync instead
 

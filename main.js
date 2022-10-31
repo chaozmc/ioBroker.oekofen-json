@@ -1,6 +1,7 @@
 "use strict";
 
 const utils = require("@iobroker/adapter-core");
+const { debug } = require("console");
 const axios = require("axios").default;
 let url = "";
 let updateDataInterval;
@@ -107,16 +108,18 @@ class OekofenJson extends utils.Adapter {
 		}
 	}
 
+
 	/**
 	 * @param {object} jsonData
 	 */
 	async parseDataOnStartupAndCreateObjects(jsonData) {
-		Object.keys(jsonData).forEach(async key => {
+		for (const key of Object.keys(jsonData)) {
 			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
 			if (key === "forecast") {
-				return;
+				continue;
 			} else {
 				//create the top-level-keys as channels
+				this.log.debug("[parseDataOnStartupAndCreateObjects] created channel " + key);
 				await this.setObjectNotExistsAsync(key, {
 					type: "channel",
 					common: {
@@ -128,9 +131,8 @@ class OekofenJson extends utils.Adapter {
 				});
 			}
 
-
-			//iterate through each child of the top-level-keys
-			Object.keys(jsonData[key]).forEach(async innerKey => {
+			for (const innerKey of Object.keys(jsonData[key])) {
+				//iterate through each child of the top-level-keys
 				let objType;
 				let objStates;
 				let objMin;
@@ -204,7 +206,6 @@ class OekofenJson extends utils.Adapter {
 					objUnit = undefined;
 				}
 
-
 				//As v3.10d sends everything as string, convert everything which could be a number to a number.
 				//In later versions, Number(aNumber) should just return itself
 				//ignore the info-datapoint; its useless for iobroker
@@ -227,12 +228,13 @@ class OekofenJson extends utils.Adapter {
 						}
 					});
 
+					this.log.debug("[parseDataOnStartupAndCreateObjects] created state " + key + "." + innerKey);
+
 					//subscribe only to writeable datapoints
 					if (!innerKey.startsWith("L_")) { this.subscribeStates(key + "." + innerKey); }
 				}
-			});
-
-		});
+			}
+		}
 	}
 
 	/**
@@ -240,11 +242,12 @@ class OekofenJson extends utils.Adapter {
 	 * @param {object} instanceObject
 	 */
 	async parseDataAndSetValues(jsonData, instanceObject) {
-		Object.keys(jsonData).forEach(key => {
-			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
-			if (key === "forecast") {return;}
+		for (const key of Object.keys(jsonData)) {
 
-			Object.keys(jsonData[key]).forEach(innerKey => {
+			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
+			if (key === "forecast") {continue;}
+
+			for (const innerKey of Object.keys(jsonData[key])) {
 				try {
 
 					//get the object from ioBroker and find out if there's a factor which needs to be applied
@@ -272,10 +275,9 @@ class OekofenJson extends utils.Adapter {
 					this.log.error("Error in function parseDataAndSetValues: "+ error);
 					this.setState("info.connection", {val: false, ack: true});
 				}
-			});
-		});
+			}
 
-
+		}
 	}
 
 	/**
