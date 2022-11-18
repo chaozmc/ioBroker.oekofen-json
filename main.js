@@ -60,7 +60,7 @@ class OekofenJson extends utils.Adapter {
 	async initialScan(url) {
 		this.log.debug("[initialScan] called with url: " + url + " and encoding: latin1");
 		try {
-			const response = await axios.get(url + "/all??", { responseEncoding: "latin1" });
+			const response = await axios.get(url + "/all?", { responseEncoding: "latin1" });
 			if (response.status === 200) {
 				this.log.debug("[initialScan_axios.get] got HTTP/200 response, call parseDataOnStartupAndCreateObjects with response.data");
 				await this.parseDataOnStartupAndCreateObjects(response.data);
