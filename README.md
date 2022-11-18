@@ -41,7 +41,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
-### **WORK IN PROGRESS** 
+### 0.2.5 (2022-11-18) 
 * (chaozmc) Removed unnecessary const
 
 ### 0.2.4 (2022-10-31) 
@@ -58,12 +58,6 @@ The adapter maintains the connected state, even there's no real permanent connec
 * (chaozmc) rewrite update & initialScan - fixes #11 and #12
 * (chaozmc) store password encrypted - fixes #14
 * (chaozmc) create static objects via io-package.json - fixes #13
-
-### 0.2.0 (2022-07-24)
-* (chaozmc) Update README, prepare for first stable release
-* (chaozmc) Fix Objects with min/max null value (Issue #8)
-* (chaozmc) Removed selectable encoding
-* (chaozmc) Added v3.10d compatibility
 
 ### **0.0.3**
 * (chaozmc) code cleanup, trigger for update & rescan

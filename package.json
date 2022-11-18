@@ -1,6 +1,6 @@
 {
   "name": "iobroker.oekofen-json",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Connect OekoFEN Pellematic via JSON to ioBroker",
   "author": {
     "name": "chaozmc",

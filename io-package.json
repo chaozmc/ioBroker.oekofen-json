@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "oekofen-json",
-        "version": "0.2.4",
+        "version": "0.2.5",
         "news": {
+            "0.2.5": {
+                "en": "Removed unnecessary const",
+                "de": "Entfernen unnötiger Konst",
+                "ru": "Удалены ненужные конст",
+                "pt": "Retirada desnecessária const",
+                "nl": "Verwijder onnodige consistent",
+                "fr": "Conste inutile enlevée",
+                "it": "Rimossa inutile const",
+                "es": "Quitar el const innecesario",
+                "pl": "Przewiduje się niepotrzebny stan",
+                "uk": "Видалено непотрібний конст",
+                "zh-cn": "消除不必要的燃烧"
+            },
             "0.2.4": {
                 "en": "changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup",
                 "de": "geändertes Schleifenverhalten, um eine für...of-Schleife anstelle von forEach zu verwenden, um parallele Erstellung von zu vielen Objekten beim Start zu vermeiden",
