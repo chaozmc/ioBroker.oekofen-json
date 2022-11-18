@@ -1,7 +1,6 @@
 "use strict";
 
 const utils = require("@iobroker/adapter-core");
-const { debug } = require("console");
 const axios = require("axios").default;
 let url = "";
 let updateDataInterval;
