@@ -41,7 +41,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
-### **WORK IN PROGRESS**
+### 0.3.0 (2023-01-15)
 * (chaozmc) Changed Adapter Type to more suitable climate-control instead of communication
 * (chaozmc) Altered query URL for inital scan to use single ?-symbol instead of double
 
@@ -56,12 +56,6 @@ The adapter maintains the connected state, even there's no real permanent connec
 
 ### 0.2.2 (2022-08-15) 
 * (chaozmc) changed objects-creation and value-updates to async/await
-
-### 0.2.1 (2022-08-15) 
-* (chaozmc) clear interval on triggered update - fixes #10
-* (chaozmc) rewrite update & initialScan - fixes #11 and #12
-* (chaozmc) store password encrypted - fixes #14
-* (chaozmc) create static objects via io-package.json - fixes #13
 
 ### **0.0.3**
 * (chaozmc) code cleanup, trigger for update & rescan

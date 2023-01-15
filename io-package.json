@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "oekofen-json",
-        "version": "0.2.5",
+        "version": "0.3.0",
         "news": {
+            "0.3.0": {
+                "en": "Changed Adapter Type to more suitable climate-control instead of communication\nAltered query URL for inital scan to use single ?-symbol instead of double",
+                "de": "Geänderter Adapter Typ zu geeigneter Klimasteuerung statt Kommunikation\nAbgeänderte Abfrage-URL für Inital-Scan, um einzelne ?-symbol anstelle von Doppel",
+                "ru": "Измененный адаптер Тип для более подходящего климат-контроля вместо общения\nAltered query URL для инитального сканирования, чтобы использовать одиночный ?-symbol вместо двойного",
+                "pt": "Adaptador alterado Tipo para controle climático mais adequado em vez de comunicação\nURL de consulta alternada para varredura inital para usar single ?-symbol em vez de duplo",
+                "nl": "Veranderde Adapter Type naar geschikte klimaatcontrole in plaats van communicatie\nVeranderde query URL voor initale scan om single-symbol te gebruiken in plaats van dubbel",
+                "fr": "Adaptateur modifié Type à un contrôle climatique plus approprié au lieu de la communication\nURL de requête altérée pour l'analyse initale pour utiliser single ?-symbol au lieu de double",
+                "it": "Adattatore modificato Tipo di controllo climatico più adatto invece di comunicazione\nURL di query altered per la scansione inital per usare singolo ?-simbolo invece di doppio",
+                "es": "Adaptador modificado Tipo a control climático más adecuado en lugar de comunicación\nURL de la consulta alterada para el escaneo inital para utilizar un solo ?-símbolo en lugar de doble",
+                "pl": "Changed Adapter Typ do bardziej odpowiedniego klimatu zamiast komunikacji\nAltered query URL for inital scan to use a single ?-symbol zamiast podwójnego skanowania",
+                "uk": "Змінений адаптер Тип більш підходящого клімат-контролю замість спілкування\nВимірювана URL-адреса запиту на вхідний сканування для використання одного ?-symbol замість подвійного",
+                "zh-cn": "变化 更适合气候的控制而不是通信的类型\nAltered queryURL for inital扫描n to use单一 ?-symbol 而不是双重。"
+            },
             "0.2.5": {
                 "en": "Removed unnecessary const",
                 "de": "Entfernen unnötiger Konst",
