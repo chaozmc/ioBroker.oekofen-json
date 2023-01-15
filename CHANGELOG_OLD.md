@@ -1,5 +1,8 @@
 # Older changes
 
+## 0.2.2 (2022-08-15) 
+* (chaozmc) changed objects-creation and value-updates to async/await
+
 ## 0.2.1 (2022-08-15) 
 * (chaozmc) clear interval on triggered update - fixes #10
 * (chaozmc) rewrite update & initialScan - fixes #11 and #12

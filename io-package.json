@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "oekofen-json",
-        "version": "0.3.0",
+        "version": "1.0.0",
         "news": {
+            "1.0.0": {
+                "en": "Push version to v1.0.0 as the code seems to be considerable as first stable release",
+                "de": "Push-Version auf v1.0.0, da der Code scheint beträchtlich als erste stabile Freigabe",
+                "ru": "Push версия для v1.0.0, поскольку код кажется значительным, как первый стабильный релиз",
+                "pt": "Push versão para v1.0.0 como o código parece ser considerável como primeira versão estável",
+                "nl": "Drukversie naar V1.0, zoals de code als eerste stabiele vrijlating lijkt",
+                "fr": "Version poussée vers v1.0.0 car le code semble considérable comme première version stable",
+                "it": "Premere la versione a v1.0.0 come il codice sembra essere notevole come primo rilascio stabile",
+                "es": "Puja la versión a v1.0.0 como el código parece ser considerable como primera versión estable",
+                "pl": "Wersja Push do v1.0.0, jako że kod wydaje się być znaczący w pierwszym stabilnym wydaniu",
+                "uk": "Push версія v1.0.0 як показує код, як перший стабільний реліз",
+                "zh-cn": "由于第一稳定释放似乎相当大。"
+            },
             "0.3.0": {
                 "en": "Changed Adapter Type to more suitable climate-control instead of communication\nAltered query URL for inital scan to use single ?-symbol instead of double",
                 "de": "Geänderter Adapter Typ zu geeigneter Klimasteuerung statt Kommunikation\nAbgeänderte Abfrage-URL für Inital-Scan, um einzelne ?-symbol anstelle von Doppel",

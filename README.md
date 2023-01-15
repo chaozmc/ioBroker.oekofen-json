@@ -41,7 +41,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
-### **WORK IN PROGRESS**
+### 1.0.0 (2023-01-15)
 * (chaozmc) Push version to v1.0.0 as the code seems to be considerable as first stable release
 
 ### 0.3.0 (2023-01-15)
@@ -56,9 +56,6 @@ The adapter maintains the connected state, even there's no real permanent connec
 
 ### 0.2.3 (2022-10-29) 
 * (chaozmc) changed initialScan function to use createObjectNotExistsAsync instead
-
-### 0.2.2 (2022-08-15) 
-* (chaozmc) changed objects-creation and value-updates to async/await
 
 ### **0.0.3**
 * (chaozmc) code cleanup, trigger for update & rescan
