@@ -179,7 +179,7 @@
         "readme": "https://github.com/chaozmc/ioBroker.oekofen-json/blob/main/README.md",
         "loglevel": "info",
         "mode": "daemon",
-        "type": "communication",
+        "type": "climate-control",
         "compact": true,
         "connectionType": "local",
         "dataSource": "poll",

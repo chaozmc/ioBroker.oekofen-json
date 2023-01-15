@@ -41,6 +41,10 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
+### **WORK IN PROGRESS**
+* (chaozmc) Changed Adapter Type to more suitable climate-control instead of communication
+* (chaozmc) Altered query URL for inital scan to use single ?-symbol instead of double
+
 ### 0.2.5 (2022-11-18) 
 * (chaozmc) Removed unnecessary const
 
