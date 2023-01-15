@@ -41,6 +41,9 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
+### **WORK IN PROGRESS**
+* (chaozmc) Push version to v1.0.0 as the code seems to be considerable as first stable release
+
 ### 0.3.0 (2023-01-15)
 * (chaozmc) Changed Adapter Type to more suitable climate-control instead of communication
 * (chaozmc) Altered query URL for inital scan to use single ?-symbol instead of double
