@@ -41,7 +41,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	### **WORK IN PROGRESS** 
 -->
 
-### **WORK IN PROGRESS**
+### 1.0.1 (2023-01-21)
 * (chaozmc) Fixed extensive object creation when using a wrong password (fixes Issue #18)
 * (chaozmc) Added counter to stop adapter after 10 unsuccessful requests
 * (chaozmc) Added check if there would be more than 50 top-level-objects to be created
@@ -58,9 +58,6 @@ The adapter maintains the connected state, even there's no real permanent connec
 
 ### 0.2.4 (2022-10-31) 
 * (chaozmc) changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup
-
-### 0.2.3 (2022-10-29) 
-* (chaozmc) changed initialScan function to use createObjectNotExistsAsync instead
 
 ### **0.0.3**
 * (chaozmc) code cleanup, trigger for update & rescan
