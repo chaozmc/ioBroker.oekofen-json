@@ -5,6 +5,7 @@ const axios = require("axios").default;
 let url = "";
 let updateDataInterval;
 let timeout1Scan;
+let failedConnectCounter = 0;
 
 class OekofenJson extends utils.Adapter {
 
@@ -42,6 +43,9 @@ class OekofenJson extends utils.Adapter {
 		this.log.debug("[onReady] info.update set to false");
 		await this.setStateAsync("info.update", false, true);
 
+		this.log.debug("[onReady] set failedConnectCounter explicitely to 0");
+		failedConnectCounter = 0;
+
 
 		//Initiate a delay between Adapter-StartUp and the first connection attempt to OekoFEN
 		this.log.debug("[onReady] created timeout for 1st scan");
@@ -61,7 +65,7 @@ class OekofenJson extends utils.Adapter {
 		this.log.debug("[initialScan] called with url: " + url + " and encoding: latin1");
 		try {
 			const response = await axios.get(url + "/all?", { responseEncoding: "latin1" });
-			if (response.status === 200) {
+			if ((response.status === 200) && (typeof response.data === "object")) {
 				this.log.debug("[initialScan_axios.get] got HTTP/200 response, call parseDataOnStartupAndCreateObjects with response.data");
 				await this.parseDataOnStartupAndCreateObjects(response.data);
 				//Set connection to true, if get-request was successful
@@ -82,6 +86,7 @@ class OekofenJson extends utils.Adapter {
 		}
 	}
 
+
 	/**
 	 * @param {string} url
 	 */
@@ -90,12 +95,14 @@ class OekofenJson extends utils.Adapter {
 		//for a normale update, we'll use the normal /all path, this will reduce transmitted data to about half the size
 		try {
 			const response = await axios.get(url + "/all", { responseEncoding: "latin1" });
-			if (response.status === 200) {
+			if ((response.status === 200) && (typeof response.data === "object")) {
 				this.log.debug("[updateData_axios.get] got HTTP/200 response, call parseDataAndSetValues with response.data");
 				await this.parseDataAndSetValues(response.data, this);
 				//Set connection to true, if get-request was successful
 				this.log.debug("[updateData_axios.get] set info.connection to true as request was successful");
 				this.setStateAsync("info.connection", { val: true, ack: true });
+				//Reset failedConnectCounter to 0 as connection was successful
+				failedConnectCounter = 0;
 			} else {
 				throw "axios response code " + response.status;
 			}
@@ -104,6 +111,12 @@ class OekofenJson extends utils.Adapter {
 			//Set connection to false in case of errors
 			this.log.debug("[updateData_axios.get.catch] error while request has occured, setting info.connection to false");
 			this.setStateAsync("info.connection", { val: false, ack: true });
+			failedConnectCounter += 1;
+			//Check if counter gets too high, if yes, disable the adapter.
+			if (failedConnectCounter > 10) {
+				this.log.error("[updateData_axios.get.catch] failed to get data 10 in a row. Disabling adapter. Please check your heater.");
+				this.disable();
+			}
 		}
 	}
 
@@ -112,6 +125,16 @@ class OekofenJson extends utils.Adapter {
 	 * @param {object} jsonData
 	 */
 	async parseDataOnStartupAndCreateObjects(jsonData) {
+		//Check if there are more than 50 Toplevel-Objects, this isn't plausible
+		const jsonDataLength = Object.keys(jsonData).length;
+		if (jsonDataLength > 50) {
+			this.log.error("[parseDataOnStartupAndCreateObjects] jsonDataLength is too big (" + jsonDataLength + ") - Adapter exiting now.");
+			//Set connection to false in case of errors
+			this.log.debug("[parseDataOnStartupAndCreateObjects] error while parsing data has occured, disable adapter.");
+			this.setStateAsync("info.connection", { val: false, ack: true });
+			this.disable();
+			return;
+		}
 		for (const key of Object.keys(jsonData)) {
 			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
 			if (key === "forecast") {
@@ -241,8 +264,17 @@ class OekofenJson extends utils.Adapter {
 	 * @param {object} instanceObject
 	 */
 	async parseDataAndSetValues(jsonData, instanceObject) {
+		//Check if there are more than 50 Toplevel-Objects, this isn't plausible
+		const jsonDataLength = Object.keys(jsonData).length;
+		if (jsonDataLength > 50) {
+			this.log.error("[parseDataAndSetValues] jsonDataLength is too big (" + jsonDataLength + ") - Adapter exiting now.");
+			//Set connection to false in case of errors
+			this.log.debug("[parseDataAndSetValues] error while parsing data has occured, disable adapter.");
+			this.setStateAsync("info.connection", { val: false, ack: true });
+			this.disable();
+			return;
+		}
 		for (const key of Object.keys(jsonData)) {
-
 			//if we reach those top-level-keys, just skip them; e.g. weather-forecast as we not even can manipulate something here
 			if (key === "forecast") {continue;}
 
