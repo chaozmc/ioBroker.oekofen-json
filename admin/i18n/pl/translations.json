@@ -1,12 +1,13 @@
 {
-    "Options": "Opcje",
-    "OekoFEN IP": "OekoFEN IP",
-    "TCPPort": "Port TCP",
-    "Password": "Hasło",
-    "Poll-Interval (s)": "Interwał ankiety (s)",
-    "The IP of your OekoFEN touch device in the network": "IP urządzenia dotykowego OekoFEN w sieci",
-    "The Port you've set on your OekoFEN touch device to listen on": "Port, który ustawiłeś w urządzeniu dotykowym OekoFEN do słuchania",
     "Enter the password you've set on your OekoFEN touch device": "Wprowadź hasło ustawione na urządzeniu dotykowym OekoFEN",
     "How often should the adapter pull the updates from the device": "Jak często adapter powinien pobierać aktualizacje z urządzenia?",
-    "Which encoding should be used when interpreting data from the device": "Jakiego kodowania należy użyć podczas interpretacji danych z urządzenia"
+    "OekoFEN IP": "OekoFEN IP",
+    "Options": "Opcje",
+    "Password": "Hasło",
+    "Poll-Interval (s)": "Interwał ankiety (s)",
+    "TCPPort": "Port TCP",
+    "The IP of your OekoFEN touch device in the network": "IP urządzenia dotykowego OekoFEN w sieci",
+    "The Port you've set on your OekoFEN touch device to listen on": "Port, który ustawiłeś w urządzeniu dotykowym OekoFEN do słuchania",
+    "Which encoding should be used when interpreting data from the device": "Jakiego kodowania należy użyć podczas interpretacji danych z urządzenia",
+    "oekofen-json adapter settings": "Ustawienia adaptera dla oekofen-json"
 }

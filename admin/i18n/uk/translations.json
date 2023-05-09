@@ -1,0 +1,13 @@
+{
+    "Enter the password you've set on your OekoFEN touch device": "Введіть пароль, який ви встановили на сенсорному пристрої OekoFEN",
+    "How often should the adapter pull the updates from the device": "Як часто адаптер повинен отримувати оновлення з пристрою",
+    "OekoFEN IP": "ОекоФЕН ІП",
+    "Options": "Опції",
+    "Password": "Пароль",
+    "Poll-Interval (s)": "Інтервал опитування (s)",
+    "TCPPort": "TCPPort",
+    "The IP of your OekoFEN touch device in the network": "IP-адреса вашого сенсорного пристрою OekoFEN у мережі",
+    "The Port you've set on your OekoFEN touch device to listen on": "Порт, який ви встановили на своєму сенсорному пристрої OekoFEN для прослуховування",
+    "Which encoding should be used when interpreting data from the device": "Яке кодування слід використовувати під час інтерпретації даних з пристрою",
+    "oekofen-json adapter settings": "Параметри адаптера для oekofen-json"
+}

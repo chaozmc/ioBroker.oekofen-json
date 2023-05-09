@@ -40,6 +40,10 @@ The adapter maintains the connected state, even there's no real permanent connec
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS** 
 -->
+### 1.0.2 (2023-05-09) 
+* (chaozmc) Added missing translations
+* (chaozmc) Updated Copyright Year
+* (chaozmc) Added .releaseconfig.json for release-script
 
 ### 1.0.1 (2023-01-21)
 * (chaozmc) Fixed extensive object creation when using a wrong password (fixes Issue #18)
@@ -56,9 +60,6 @@ The adapter maintains the connected state, even there's no real permanent connec
 ### 0.2.5 (2022-11-18) 
 * (chaozmc) Removed unnecessary const
 
-### 0.2.4 (2022-10-31) 
-* (chaozmc) changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup
-
 ### **0.0.3**
 * (chaozmc) code cleanup, trigger for update & rescan
 
@@ -71,7 +72,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 ## License
 MIT License
 
-Copyright (c) 2022 chaozmc <chaozmc@is-jo.org>
+Copyright (c) 2023 chaozmc <chaozmc@is-jo.org>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

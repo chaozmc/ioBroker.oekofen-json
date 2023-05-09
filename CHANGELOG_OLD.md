@@ -1,4 +1,6 @@
 # Older changes
+## 0.2.4 (2022-10-31) 
+* (chaozmc) changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup
 
 ## 0.2.3 (2022-10-29) 
 * (chaozmc) changed initialScan function to use createObjectNotExistsAsync instead
@@ -23,4 +25,3 @@
 
 ## 0.1.0-beta.0 (2022-06-26)
 * (chaozmc) selectable response encoding (utf8 & latin1) & bit of debug-logging added
-

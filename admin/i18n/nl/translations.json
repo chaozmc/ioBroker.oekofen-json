@@ -1,12 +1,13 @@
 {
-    "Options": "Opties",
-    "OekoFEN IP": "OekoFEN IP",
-    "TCPPort": "TCPPoort",
-    "Password": "Wachtwoord",
-    "Poll-Interval (s)": "Poll-interval (s)",
-    "The IP of your OekoFEN touch device in the network": "Het IP-adres van uw OekoFEN-aanraakapparaat in het netwerk",
-    "The Port you've set on your OekoFEN touch device to listen on": "De poort die u op uw OekoFEN-aanraakapparaat hebt ingesteld om naar te luisteren",
     "Enter the password you've set on your OekoFEN touch device": "Voer het wachtwoord in dat je hebt ingesteld op je OekoFEN-aanraakapparaat",
     "How often should the adapter pull the updates from the device": "Hoe vaak moet de adapter de updates van het apparaat halen?",
-    "Which encoding should be used when interpreting data from the device": "Welke codering moet worden gebruikt bij het interpreteren van gegevens van het apparaat"
+    "OekoFEN IP": "OekoFEN IP",
+    "Options": "Opties",
+    "Password": "Wachtwoord",
+    "Poll-Interval (s)": "Poll-interval (s)",
+    "TCPPort": "TCPPoort",
+    "The IP of your OekoFEN touch device in the network": "Het IP-adres van uw OekoFEN-aanraakapparaat in het netwerk",
+    "The Port you've set on your OekoFEN touch device to listen on": "De poort die u op uw OekoFEN-aanraakapparaat hebt ingesteld om naar te luisteren",
+    "Which encoding should be used when interpreting data from the device": "Welke codering moet worden gebruikt bij het interpreteren van gegevens van het apparaat",
+    "oekofen-json adapter settings": "Adapterinstellingen voor oekofen-json"
 }

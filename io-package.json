@@ -1,302 +1,221 @@
 {
-    "common": {
-        "name": "oekofen-json",
-        "version": "1.0.1",
-        "news": {
-            "1.0.1": {
-                "en": "Fixed extensive object creation when using a wrong password (fixes Issue #18)\nAdded counter to stop adapter after 10 unsuccessful requests\nAdded check if there would be more than 50 top-level-objects to be created",
-                "de": "Feste umfangreiche Objekt-Erstellung bei Verwendung eines falschen Passworts (fixes Issue #18)\nZusätzlicher Zähler zum Stoppadapter nach 10 erfolglosen Anfragen\nZusätzlicher Check, wenn mehr als 50 Top-Level-Objekte erstellt werden",
-                "ru": "Исправлена обширная разработка объекта при использовании неправильного пароля (фиксы No18)\nДобавлен счетчик для остановки адаптера после 10 неудачных запросов\nДобавлена проверка, если бы было больше, чем 50 сверхуровневых объектов, которые будут созданы",
-                "pt": "Criação de objetos extensos fixos ao usar uma senha errada (fixa Edição #18)\nContador adicionado para parar o adaptador após 10 solicitações mal sucedidas\nAdicionado verificar se haveria mais de 50 top-level-objects para ser criado",
-                "nl": "Verlengde object creatie als je een verkeerd wachtwoord gebruikt\nAangepaste tegenhanger om te stoppen met adapter na 10 onverwachte verzoeken\nControleer of er meer dan 50 topobjecten gemaakt worden",
-                "fr": "Création d'objets étendus fixes lors de l'utilisation d'un mot de passe incorrect (fixes Numéro #18)\nAjout du compteur pour arrêter l'adaptateur après 10 requêtes infructueuses\nVérifiez s'il y aurait plus de 50 objets de haut niveau à créer",
-                "it": "Creazione di oggetti estesi riparati quando si utilizza una password sbagliata (fissi Numero 18)\nContatore aggiunto per arrestare adattatore dopo 10 richieste senza successo\nAggiunto il controllo se ci sarebbe più di 50 oggetti di alto livello da creare",
-                "es": "Creación de objetos extensos fijos al usar una contraseña incorrecta (fixes Edición #18)\nAñadido contador para detener el adaptador después de 10 solicitudes sin éxito\nComprobación adicional si habría más de 50 objetos de alto nivel que se crearán",
-                "pl": "Wykorzystywany rozległy obiekt, używając błędnego hasła (fixes Issue #18)\nW przeciwnym razie zaprzestano przygotowania do przetargu po 10 nieudanych prośbach\nUstalono pytanie, czy powstanie ponad 50 obiektów najwyższego poziomu",
-                "uk": "Виправлено створення об'єкта при використанні неправильного пароля (фікси Випуск No18)\nДодано лічильник для зупинки адаптера після 10 невдалих запитів\nДодано перевірку, якщо буде створено більше 50 топ-рівневих елементів",
-                "zh-cn": "在使用错误的密码(第18号法案)时,确定广泛的目标的产生\n在10个请求未成功之后,添加了制止适应行动的办法\n如果要建立50多个最高层次的object,则增加检查。"
-            },
-            "1.0.0": {
-                "en": "Push version to v1.0.0 as the code seems to be considerable as first stable release",
-                "de": "Push-Version auf v1.0.0, da der Code scheint beträchtlich als erste stabile Freigabe",
-                "ru": "Push версия для v1.0.0, поскольку код кажется значительным, как первый стабильный релиз",
-                "pt": "Push versão para v1.0.0 como o código parece ser considerável como primeira versão estável",
-                "nl": "Drukversie naar V1.0, zoals de code als eerste stabiele vrijlating lijkt",
-                "fr": "Version poussée vers v1.0.0 car le code semble considérable comme première version stable",
-                "it": "Premere la versione a v1.0.0 come il codice sembra essere notevole come primo rilascio stabile",
-                "es": "Puja la versión a v1.0.0 como el código parece ser considerable como primera versión estable",
-                "pl": "Wersja Push do v1.0.0, jako że kod wydaje się być znaczący w pierwszym stabilnym wydaniu",
-                "uk": "Push версія v1.0.0 як показує код, як перший стабільний реліз",
-                "zh-cn": "由于第一稳定释放似乎相当大。"
-            },
-            "0.3.0": {
-                "en": "Changed Adapter Type to more suitable climate-control instead of communication\nAltered query URL for inital scan to use single ?-symbol instead of double",
-                "de": "Geänderter Adapter Typ zu geeigneter Klimasteuerung statt Kommunikation\nAbgeänderte Abfrage-URL für Inital-Scan, um einzelne ?-symbol anstelle von Doppel",
-                "ru": "Измененный адаптер Тип для более подходящего климат-контроля вместо общения\nAltered query URL для инитального сканирования, чтобы использовать одиночный ?-symbol вместо двойного",
-                "pt": "Adaptador alterado Tipo para controle climático mais adequado em vez de comunicação\nURL de consulta alternada para varredura inital para usar single ?-symbol em vez de duplo",
-                "nl": "Veranderde Adapter Type naar geschikte klimaatcontrole in plaats van communicatie\nVeranderde query URL voor initale scan om single-symbol te gebruiken in plaats van dubbel",
-                "fr": "Adaptateur modifié Type à un contrôle climatique plus approprié au lieu de la communication\nURL de requête altérée pour l'analyse initale pour utiliser single ?-symbol au lieu de double",
-                "it": "Adattatore modificato Tipo di controllo climatico più adatto invece di comunicazione\nURL di query altered per la scansione inital per usare singolo ?-simbolo invece di doppio",
-                "es": "Adaptador modificado Tipo a control climático más adecuado en lugar de comunicación\nURL de la consulta alterada para el escaneo inital para utilizar un solo ?-símbolo en lugar de doble",
-                "pl": "Changed Adapter Typ do bardziej odpowiedniego klimatu zamiast komunikacji\nAltered query URL for inital scan to use a single ?-symbol zamiast podwójnego skanowania",
-                "uk": "Змінений адаптер Тип більш підходящого клімат-контролю замість спілкування\nВимірювана URL-адреса запиту на вхідний сканування для використання одного ?-symbol замість подвійного",
-                "zh-cn": "变化 更适合气候的控制而不是通信的类型\nAltered queryURL for inital扫描n to use单一 ?-symbol 而不是双重。"
-            },
-            "0.2.5": {
-                "en": "Removed unnecessary const",
-                "de": "Entfernen unnötiger Konst",
-                "ru": "Удалены ненужные конст",
-                "pt": "Retirada desnecessária const",
-                "nl": "Verwijder onnodige consistent",
-                "fr": "Conste inutile enlevée",
-                "it": "Rimossa inutile const",
-                "es": "Quitar el const innecesario",
-                "pl": "Przewiduje się niepotrzebny stan",
-                "uk": "Видалено непотрібний конст",
-                "zh-cn": "消除不必要的燃烧"
-            },
-            "0.2.4": {
-                "en": "changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup",
-                "de": "geändertes Schleifenverhalten, um eine für...of-Schleife anstelle von forEach zu verwenden, um parallele Erstellung von zu vielen Objekten beim Start zu vermeiden",
-                "ru": "измененное поведение цикла, чтобы использовать для ... цикл вместо forEach, чтобы избежать параллельного создания слишком много объектов при запуске",
-                "pt": "comportamento de loop alterado para usar um para... de loop em vez de para Cada um para evitar a criação paralela de muitos objetos na inicialização",
-                "nl": "gedraag je om een lus te gebruiken in plaats van te voorzien om parallelle creatie te vermijden van te veel objecten bij de startup",
-                "fr": "changement de comportement de boucle pour utiliser un for... of loop au lieu de forEach pour éviter la création parallèle de trop d'objets au démarrage",
-                "it": "cambiamento del comportamento del loop per usare un for...of loop invece di forEach per evitare la creazione parallela di troppi oggetti all'avvio",
-                "es": "cambio de comportamiento de bucle para usar un... de bucle en lugar de paraCada para evitar la creación paralela de demasiados objetos al inicio",
-                "pl": "zmienił zachowanie pętli, aby użyć pętli zamiast Each, aby uniknąć równoległego tworzenia zbyt wielu obiektów na początku",
-                "uk": "змінена петля поведінка використовувати для...петля замість того, щоб уникнути паралельного створення занадто багато об'єктів при запуску",
-                "zh-cn": "改变使用费的诱导行为,而不是为了避免在开工时同时制造过多的物体。"
-            },
-            "0.2.3": {
-                "en": "changed initialScan function to use createObjectNotExistsAsync instead",
-                "de": "geänderter Anfang Scan-Funktion zu verwenden erstellen ObjectNotExistsAsync statt",
-                "ru": "измененный начальный Функция сканирования для использования создать ОбъектNotExistsAsync вместо",
-                "pt": "inicial alterada Função de digitalização para usar criar ObjectNotExistsAsync em vez",
-                "nl": "veranderde Scanfuncties gebruiken creatie Vertaling:",
-                "fr": "changement initial Fonction Scan d'utilisation créer ObjectNotExistsAsync à la place",
-                "it": "cambiato iniziale Funzione di scansione per utilizzare ObjectNotExistsAsync",
-                "es": "cambios iniciales Función de exploración para utilizar crear ObjectNotExistsAsync en su lugar",
-                "pl": "zmienić Skandalowa funkcja służąca do tworzenia konstrukcji ObjectExistsAsync",
-                "uk": "зміна початкового Функція сканування для створення Об'єктNotExistsAsync замість",
-                "zh-cn": "初步变化 Scan 创建使用功能 反对"
-            },
-            "0.2.2": {
-                "en": "changed objects-creation and value-updates to async/await",
-                "de": "geänderte objekt-erstellung und wert-updates zu async/await",
-                "ru": "измененные объекты-создание и ценности-обновления для async/await",
-                "pt": "alterou a criação de objetos e datas de valor para async/await",
-                "nl": "veranderde objecten-creatie en waarde-updates naar async/a wacht",
-                "fr": "changement d'objet-création et de valeur-updates à async/await",
-                "it": "modificato oggetti-creazione e valore-aggiornamento ad asinc/await",
-                "es": "cambio de la creación de objetos y actualizaciones de valor a async/await",
-                "pl": "zmienione obiekty i aktualizacja wartości do asynchronacji/await",
-                "zh-cn": "b. 修改目标的设定和增值日期"
-            },
-            "0.2.1": {
-                "en": "clear interval on triggered update - fixes #10\nrewrite update & initialScan - fixes #11 and #12\nstore password encrypted - fixes #14\ncreate static objects via io-package.json - fixes #13",
-                "de": "klares intervall auf ausgelöstem update - repariert #10\nrewriting Update & initial Scan - Fixes #11 und #12\nspeicherkennwort verschlüsselt - fixes #14\nstatische objekte über io-package erstellen. json - behebungen #13",
-                "ru": "понятный интервал при запуске обновления - исправления #10\nпереписать обновление & начальный Сканирование - исправления #11 и #12\nхранить пароль зашифрован - исправления #14\nсоздавать статические объекты через io-package. джсон - исправления #13",
-                "pt": "intervalo claro na atualização acionado - correções #10\nreescrever atualização e inicial Scan - correções #11 e #12\nstore password criptografado - correções #14\ncriar objetos estáticos via io-package. o que foi? - correções #13",
-                "nl": "#10\nvertaling: Scan - fixes #11 and12\nvertaling:\nmaak statische objecten via io-package. json - #13",
-                "fr": "intervalle clair sur la mise à jour déclenchée - corrections #10\nrewrite update \" initial Scan - corrige #11 et #12\nstock mot de passe crypté - corrige #14\ncréer des objets statiques via io-package. json - corrige #13",
-                "it": "intervallo chiaro su aggiornamento attivato - correzioni #10\naggiornamento riscrittura & iniziale Scan - correzioni #11 e #12\nmemorizzare la password crittografata - correzioni #14\ncreare oggetti statici tramite io-package. j. - correzioni #13",
-                "es": "intervalo claro en la actualización activada - fija #10\nreescribir la actualización inicial Scan - correcciones #11 y #12\nguardar contraseña encriptada - correcciones #14\ncrear objetos estáticos a través de io-paquete. json - arreglos #13",
-                "pl": "oczywiste przedziały na uaktualnionej aktualizacji – naprawy #10\nrewrite i inicjacja Skandy – urządzenie #11 i #12\nprzechowywać hasła zaszyfrowane – naprawy #14\ntworzy statyczne obiekty poprzez io-package. json - naprawa #13",
-                "zh-cn": "a. 触发最新资料的明确的间隔 - 10\n单元更新和初步更新 Scan-ixing #11 and #12\nd. 装有密码加密 - 包装\n通过碘剂制造静态物体。 json - 确定编号13"
-            },
-            "0.2.0": {
-                "en": "Update README, prepare for first stable release\nFix Objects with min/max null value (Issue #8)\nRemoved selectable encoding\nAdded v3.10d compatibility",
-                "de": "Update README, Vorbereitung auf die erste stabile Veröffentlichung\nObjekte mit min/max Nullwert beheben (Issue #8)\nEntfernte wählbare Kodierung\nZusätzlich v3.10d Kompatibilität",
-                "ru": "Обновить README, подготовиться к первому стабильному релизу\nFix Объекты с мин/макс null значение (Issue #8)\nУдалено отборное кодирование\nДобавлена совместимость v3.10d",
-                "pt": "Atualizar README, prepare-se para a primeira versão estável\nCorrigir objetos com valor nulo min/max (Issue #8)\nCodificação selecionável removida\nAdicionado compatibilidade v3.10d",
-                "nl": "Vertaling:\nVertaling:\nVerwijderbare code\nVertaling:",
-                "fr": "Mettre à jour le README, préparer pour la première version stable\nObjets fixes avec valeur nulle min/max (Issue #8)\nEncodage sélectionnable enlevé\nAjout de la compatibilité v3.10d",
-                "it": "Aggiornare README, prepararsi per il primo rilascio stabile\nRisolvere oggetti con valore minimo/max nullo (Essue #8)\nCodifica selezionabile eliminata\nAggiunto v3.10d compatibilità",
-                "es": "Actualizar README, preparar para la primera liberación estable\nFijar objetos con valor nulo min/max (Isue #8)\nCodificación selectiva\nCompatibilidad añadida v3.10d",
-                "pl": "Update README przygotowuje się do pierwszego stabilnego wydania\nFix Objects with min/max null value (ang.)\nRemove wybrane kodowanie\nAdded v3.10d",
-                "zh-cn": "更新中小企业,准备首次稳定释放\n具有min/max无效价值的ix个物体(编号8)\n取消可选择的浮动\n增 容量"
-            },
-            "0.2.0-beta.0": {
-                "en": "update to admin v5 config and require min version of admin (>= 5.2.0)",
-                "de": "update auf admin v5 config und erfordern min-version von admin (>= 5.2.0)",
-                "ru": "обновление до админ v5 config и требуйте min версии админ (>= 5.2.0)",
-                "pt": "update to admin v5 config and require min version of admin (>= 5.2.0)",
-                "nl": "vertaling:",
-                "fr": "mettre à jour la configuration d'administration v5 et exiger la version min d'administrateur (>= 5.2.0)",
-                "it": "aggiornamento a admin v5 config e richiedono la versione min di admin (>= 5.2.0)",
-                "es": "actualizar a admin v5 config y requerir versión min de admin (= 5.2.0)",
-                "pl": "zaktualizowana wersja admin v5 wymaga minowej wersji admin (>= 5.2.0)",
-                "zh-cn": "摘 要"
-            },
-            "0.1.0-beta.0": {
-                "en": "selectable response encoding (utf8 & latin1) & bit of debug-logging added",
-                "de": "wählbare antwortcodierung (utf8 & latin1) & bit debug-logging hinzugefügt",
-                "ru": "выбираемый кодирование ответа (utf8 & latin1) & bit of debug-logging добавлен",
-                "pt": "codificação de resposta selecionável (utf8 & latin1) & bit of debug-logging adicionado",
-                "nl": "_",
-                "fr": "encodage de réponse sélective (utf8 & latin1) & bit debug-logging ajouté",
-                "it": "codifica di risposta selezionabile (utf8 & latin1) & bit di debug-logging aggiunto",
-                "es": "selectable respuesta codificación (utf8 \" latin1) \" bit of debug-logging added",
-                "pl": "wybrane kodowanie odpowiedzi (utf8 & latin1) oraz bit debug-log",
-                "zh-cn": "可以选择的反应(utf8和 latin1)和减少诱拐的轨道"
-            },
-            "0.0.3": {
-                "en": "code-cleanup, trigger update and rescan ability",
-                "de": "code-cleanup, trigger-update und rescan-fähigkeit",
-                "ru": "код-cleanup, триггер обновление и rescan способность",
-                "pt": "limpeza de código, atualização de gatilho e capacidade de rescan",
-                "nl": "code-cleanup, trigger update en rescan vaardigheden",
-                "fr": "nettoyage de code, mise à jour de déclenchement et capacité de rescan",
-                "it": "pulizia del codice, aggiornamento del trigger e capacità di rescan",
-                "es": "codificar, activar la actualización y cambiar la capacidad",
-                "pl": "oczyszczenie kodu, uaktualnienie i reskanowanie",
-                "zh-cn": "a. 守则汇编、触发更新和复查能力"
-            },
-            "0.0.2": {
-                "en": "first working release",
-                "de": "erste arbeitsfreigabe",
-                "ru": "первый рабочий релиз",
-                "pt": "primeiro lançamento de trabalho",
-                "nl": "eerste werking",
-                "fr": "premier communiqué de travail",
-                "it": "primo rilascio di lavoro",
-                "es": "primer lanzamiento de trabajo",
-                "pl": "pierwsze wydanie",
-                "zh-cn": "首次工作释放"
-            },
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
-            }
-        },
-        "titleLang": {
-            "en": "OekoFEN JSON",
-            "de": "ÖkoFEN JSON",
-            "ru": "ЭкоФЕН JSON",
-            "pt": "OekoFEN JSON",
-            "nl": "OekoFEN JSON",
-            "fr": "OekoFEN JSON",
-            "it": "OekoFEN JSON",
-            "es": "OekoFEN JSON",
-            "pl": "OekoFEN JSON",
-            "zh-cn": "OekoFEN JSON"
-        },
-        "desc": {
-            "en": "Connect OekoFEN Pellematic via JSON to ioBroker",
-            "de": "Verbinden Sie OekoFEN Pellematic über JSON mit ioBroker",
-            "ru": "Подключите OekoFEN Pellematic через JSON к ioBroker",
-            "pt": "Conecte o OekoFEN Pellematic via JSON ao ioBroker",
-            "nl": "Verbind OekoFEN Pellematic via JSON met ioBroker",
-            "fr": "Connectez OekoFEN Pellematic via JSON à ioBroker",
-            "it": "Collega OekoFEN Pellematic tramite JSON a ioBroker",
-            "es": "Conecte OekoFEN Pellematic a través de JSON a ioBroker",
-            "pl": "Połącz OekoFEN Pellematic przez JSON z ioBroker",
-            "zh-cn": "通过 JSON 将 OekoFEN Pellematic 连接到 ioBroker"
-        },
-        "authors": [
-            "chaozmc <chaozmc@is-jo.org>"
-        ],
-        "keywords": [
-            "oekofen",
-            "pellematic"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
-        "icon": "oekofen-json.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/chaozmc/ioBroker.oekofen-json/main/admin/oekofen-json.png",
-        "readme": "https://github.com/chaozmc/ioBroker.oekofen-json/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "climate-control",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll",
-        "materialize": true,
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=2.0.0"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.2.0"
-            }
-        ]
+  "common": {
+    "name": "oekofen-json",
+    "version": "1.0.2",
+    "news": {
+      "1.0.2": {
+        "en": "Added missing translations\nUpdated Copyright Year\nAdded .releaseconfig.json for release-script",
+        "de": "Fehlende Übersetzungen hinzugefügt\nAktualisierung des Urheberrechtsjahres\nReleaseconfig.json hinzugefügt für release-script",
+        "ru": "Добавлены недостающие переводы\nОбновлено Copyright год\nДобавлено releaseconfig.json для release-script",
+        "pt": "Adicionadas traduções em falta\nAno de direitos autorais atualizado\nAdicionado releaseconfig.json para release-script",
+        "nl": "Vertaling:\nVertaling:\nToegevoegd vrijlating",
+        "fr": "Ajout de traductions manquantes\nActualisé Copyright Year\nAjouté releaseconfig.json for release-script",
+        "it": "Aggiunta di traduzioni mancanti\nAggiornato l'Anno del Copyright\nAggiunto releaseconfig.json per release-script",
+        "es": "Añadido traducciones desaparecidas\nAño de Copyright Actualizado\nAñadido liberaciónconfig.json para la liberación-script",
+        "pl": "Addditioning (ang.)\nThe annual Copyright Year (ang.)\nAdded releaseconfig.json for release-script (ang.)",
+        "uk": "Додано відсутні переклади\nОновлений рік авторського права\nДоданий релізconfig.json для реліз-script",
+        "zh-cn": "增加失踪翻译\n最新版权年\n释放原状的增删"
+      },
+      "1.0.1": {
+        "en": "Fixed extensive object creation when using a wrong password (fixes Issue #18)\nAdded counter to stop adapter after 10 unsuccessful requests\nAdded check if there would be more than 50 top-level-objects to be created",
+        "de": "Feste umfangreiche Objekt-Erstellung bei Verwendung eines falschen Passworts (fixes Issue #18)\nZusätzlicher Zähler zum Stoppadapter nach 10 erfolglosen Anfragen\nZusätzlicher Check, wenn mehr als 50 Top-Level-Objekte erstellt werden",
+        "ru": "Исправлена обширная разработка объекта при использовании неправильного пароля (фиксы No18)\nДобавлен счетчик для остановки адаптера после 10 неудачных запросов\nДобавлена проверка, если бы было больше, чем 50 сверхуровневых объектов, которые будут созданы",
+        "pt": "Criação de objetos extensos fixos ao usar uma senha errada (fixa Edição #18)\nContador adicionado para parar o adaptador após 10 solicitações mal sucedidas\nAdicionado verificar se haveria mais de 50 top-level-objects para ser criado",
+        "nl": "Verlengde object creatie als je een verkeerd wachtwoord gebruikt\nAangepaste tegenhanger om te stoppen met adapter na 10 onverwachte verzoeken\nControleer of er meer dan 50 topobjecten gemaakt worden",
+        "fr": "Création d'objets étendus fixes lors de l'utilisation d'un mot de passe incorrect (fixes Numéro #18)\nAjout du compteur pour arrêter l'adaptateur après 10 requêtes infructueuses\nVérifiez s'il y aurait plus de 50 objets de haut niveau à créer",
+        "it": "Creazione di oggetti estesi riparati quando si utilizza una password sbagliata (fissi Numero 18)\nContatore aggiunto per arrestare adattatore dopo 10 richieste senza successo\nAggiunto il controllo se ci sarebbe più di 50 oggetti di alto livello da creare",
+        "es": "Creación de objetos extensos fijos al usar una contraseña incorrecta (fixes Edición #18)\nAñadido contador para detener el adaptador después de 10 solicitudes sin éxito\nComprobación adicional si habría más de 50 objetos de alto nivel que se crearán",
+        "pl": "Wykorzystywany rozległy obiekt, używając błędnego hasła (fixes Issue #18)\nW przeciwnym razie zaprzestano przygotowania do przetargu po 10 nieudanych prośbach\nUstalono pytanie, czy powstanie ponad 50 obiektów najwyższego poziomu",
+        "uk": "Виправлено створення об'єкта при використанні неправильного пароля (фікси Випуск No18)\nДодано лічильник для зупинки адаптера після 10 невдалих запитів\nДодано перевірку, якщо буде створено більше 50 топ-рівневих елементів",
+        "zh-cn": "在使用错误的密码(第18号法案)时,确定广泛的目标的产生\n在10个请求未成功之后,添加了制止适应行动的办法\n如果要建立50多个最高层次的object,则增加检查。"
+      },
+      "1.0.0": {
+        "en": "Push version to v1.0.0 as the code seems to be considerable as first stable release",
+        "de": "Push-Version auf v1.0.0, da der Code scheint beträchtlich als erste stabile Freigabe",
+        "ru": "Push версия для v1.0.0, поскольку код кажется значительным, как первый стабильный релиз",
+        "pt": "Push versão para v1.0.0 como o código parece ser considerável como primeira versão estável",
+        "nl": "Drukversie naar V1.0, zoals de code als eerste stabiele vrijlating lijkt",
+        "fr": "Version poussée vers v1.0.0 car le code semble considérable comme première version stable",
+        "it": "Premere la versione a v1.0.0 come il codice sembra essere notevole come primo rilascio stabile",
+        "es": "Puja la versión a v1.0.0 como el código parece ser considerable como primera versión estable",
+        "pl": "Wersja Push do v1.0.0, jako że kod wydaje się być znaczący w pierwszym stabilnym wydaniu",
+        "uk": "Push версія v1.0.0 як показує код, як перший стабільний реліз",
+        "zh-cn": "由于第一稳定释放似乎相当大。"
+      },
+      "0.3.0": {
+        "en": "Changed Adapter Type to more suitable climate-control instead of communication\nAltered query URL for inital scan to use single ?-symbol instead of double",
+        "de": "Geänderter Adapter Typ zu geeigneter Klimasteuerung statt Kommunikation\nAbgeänderte Abfrage-URL für Inital-Scan, um einzelne ?-symbol anstelle von Doppel",
+        "ru": "Измененный адаптер Тип для более подходящего климат-контроля вместо общения\nAltered query URL для инитального сканирования, чтобы использовать одиночный ?-symbol вместо двойного",
+        "pt": "Adaptador alterado Tipo para controle climático mais adequado em vez de comunicação\nURL de consulta alternada para varredura inital para usar single ?-symbol em vez de duplo",
+        "nl": "Veranderde Adapter Type naar geschikte klimaatcontrole in plaats van communicatie\nVeranderde query URL voor initale scan om single-symbol te gebruiken in plaats van dubbel",
+        "fr": "Adaptateur modifié Type à un contrôle climatique plus approprié au lieu de la communication\nURL de requête altérée pour l'analyse initale pour utiliser single ?-symbol au lieu de double",
+        "it": "Adattatore modificato Tipo di controllo climatico più adatto invece di comunicazione\nURL di query altered per la scansione inital per usare singolo ?-simbolo invece di doppio",
+        "es": "Adaptador modificado Tipo a control climático más adecuado en lugar de comunicación\nURL de la consulta alterada para el escaneo inital para utilizar un solo ?-símbolo en lugar de doble",
+        "pl": "Changed Adapter Typ do bardziej odpowiedniego klimatu zamiast komunikacji\nAltered query URL for inital scan to use a single ?-symbol zamiast podwójnego skanowania",
+        "uk": "Змінений адаптер Тип більш підходящого клімат-контролю замість спілкування\nВимірювана URL-адреса запиту на вхідний сканування для використання одного ?-symbol замість подвійного",
+        "zh-cn": "变化 更适合气候的控制而不是通信的类型\nAltered queryURL for inital扫描n to use单一 ?-symbol 而不是双重。"
+      },
+      "0.2.5": {
+        "en": "Removed unnecessary const",
+        "de": "Entfernen unnötiger Konst",
+        "ru": "Удалены ненужные конст",
+        "pt": "Retirada desnecessária const",
+        "nl": "Verwijder onnodige consistent",
+        "fr": "Conste inutile enlevée",
+        "it": "Rimossa inutile const",
+        "es": "Quitar el const innecesario",
+        "pl": "Przewiduje się niepotrzebny stan",
+        "uk": "Видалено непотрібний конст",
+        "zh-cn": "消除不必要的燃烧"
+      },
+      "0.2.4": {
+        "en": "changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup",
+        "de": "geändertes Schleifenverhalten, um eine für...of-Schleife anstelle von forEach zu verwenden, um parallele Erstellung von zu vielen Objekten beim Start zu vermeiden",
+        "ru": "измененное поведение цикла, чтобы использовать для ... цикл вместо forEach, чтобы избежать параллельного создания слишком много объектов при запуске",
+        "pt": "comportamento de loop alterado para usar um para... de loop em vez de para Cada um para evitar a criação paralela de muitos objetos na inicialização",
+        "nl": "gedraag je om een lus te gebruiken in plaats van te voorzien om parallelle creatie te vermijden van te veel objecten bij de startup",
+        "fr": "changement de comportement de boucle pour utiliser un for... of loop au lieu de forEach pour éviter la création parallèle de trop d'objets au démarrage",
+        "it": "cambiamento del comportamento del loop per usare un for...of loop invece di forEach per evitare la creazione parallela di troppi oggetti all'avvio",
+        "es": "cambio de comportamiento de bucle para usar un... de bucle en lugar de paraCada para evitar la creación paralela de demasiados objetos al inicio",
+        "pl": "zmienił zachowanie pętli, aby użyć pętli zamiast Each, aby uniknąć równoległego tworzenia zbyt wielu obiektów na początku",
+        "uk": "змінена петля поведінка використовувати для...петля замість того, щоб уникнути паралельного створення занадто багато об'єктів при запуску",
+        "zh-cn": "改变使用费的诱导行为,而不是为了避免在开工时同时制造过多的物体。"
+      },
+      "0.2.3": {
+        "en": "changed initialScan function to use createObjectNotExistsAsync instead",
+        "de": "geänderter Anfang Scan-Funktion zu verwenden erstellen ObjectNotExistsAsync statt",
+        "ru": "измененный начальный Функция сканирования для использования создать ОбъектNotExistsAsync вместо",
+        "pt": "inicial alterada Função de digitalização para usar criar ObjectNotExistsAsync em vez",
+        "nl": "veranderde Scanfuncties gebruiken creatie Vertaling:",
+        "fr": "changement initial Fonction Scan d'utilisation créer ObjectNotExistsAsync à la place",
+        "it": "cambiato iniziale Funzione di scansione per utilizzare ObjectNotExistsAsync",
+        "es": "cambios iniciales Función de exploración para utilizar crear ObjectNotExistsAsync en su lugar",
+        "pl": "zmienić Skandalowa funkcja służąca do tworzenia konstrukcji ObjectExistsAsync",
+        "uk": "зміна початкового Функція сканування для створення Об'єктNotExistsAsync замість",
+        "zh-cn": "初步变化 Scan 创建使用功能 反对"
+      }
     },
-    "encryptedNative": [
-        "oekofenPassword"
-    ],
-    "protectedNative": [
-        "oekofenPassword"
-    ],
-    "native": {
-        "oekofenIp": "1.2.3.4",
-        "oekofenPort": "8080",
-        "oekofenPassword": "",
-        "myRequestInterval": "30"
+    "titleLang": {
+      "en": "OekoFEN JSON",
+      "de": "ÖkoFEN JSON",
+      "ru": "ЭкоФЕН JSON",
+      "pt": "OekoFEN JSON",
+      "nl": "OekoFEN JSON",
+      "fr": "OekoFEN JSON",
+      "it": "OekoFEN JSON",
+      "es": "OekoFEN JSON",
+      "pl": "OekoFEN JSON",
+      "zh-cn": "OekoFEN JSON",
+      "uk": "OekoFEN JSON"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Adapter connected to OekoFEN",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.rescan",
-            "type": "state",
-            "common": {
-                "name": "rescan",
-                "type": "boolean",
-                "role": "button",
-                "desc": "Rescan JSON and create (missing) datapoints",
-                "read": true,
-                "write": true
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.update",
-            "type": "state",
-            "common": {
-                "name": "update",
-                "type": "boolean",
-                "role": "button",
-                "desc": "Trigger an update of all states now",
-                "read": true,
-                "write": true
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Connect OekoFEN Pellematic via JSON to ioBroker",
+      "de": "Verbinden Sie OekoFEN Pellematic über JSON mit ioBroker",
+      "ru": "Подключите OekoFEN Pellematic через JSON к ioBroker",
+      "pt": "Conecte o OekoFEN Pellematic via JSON ao ioBroker",
+      "nl": "Verbind OekoFEN Pellematic via JSON met ioBroker",
+      "fr": "Connectez OekoFEN Pellematic via JSON à ioBroker",
+      "it": "Collega OekoFEN Pellematic tramite JSON a ioBroker",
+      "es": "Conecte OekoFEN Pellematic a través de JSON a ioBroker",
+      "pl": "Połącz OekoFEN Pellematic przez JSON z ioBroker",
+      "zh-cn": "通过 JSON 将 OekoFEN Pellematic 连接到 ioBroker",
+      "uk": "Підключіть OekoFEN Pellematic через JSON до ioBroker"
+    },
+    "authors": [
+      "chaozmc <chaozmc@is-jo.org>"
+    ],
+    "keywords": [
+      "oekofen",
+      "pellematic"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "oekofen-json.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/chaozmc/ioBroker.oekofen-json/main/admin/oekofen-json.png",
+    "readme": "https://github.com/chaozmc/ioBroker.oekofen-json/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "climate-control",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "materialize": true,
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=2.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.2.0"
+      }
     ]
+  },
+  "encryptedNative": [
+    "oekofenPassword"
+  ],
+  "protectedNative": [
+    "oekofenPassword"
+  ],
+  "native": {
+    "oekofenIp": "1.2.3.4",
+    "oekofenPort": "8080",
+    "oekofenPassword": "",
+    "myRequestInterval": "30"
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Adapter connected to OekoFEN",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.rescan",
+      "type": "state",
+      "common": {
+        "name": "rescan",
+        "type": "boolean",
+        "role": "button",
+        "desc": "Rescan JSON and create (missing) datapoints",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.update",
+      "type": "state",
+      "common": {
+        "name": "update",
+        "type": "boolean",
+        "role": "button",
+        "desc": "Trigger an update of all states now",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    }
+  ]
 }
