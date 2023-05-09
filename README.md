@@ -38,16 +38,13 @@ The adapter maintains the connected state, even there's no real permanent connec
 ## Changelog
 <!--
 	Placeholder for the next version (at the beginning of the line):
-	### **WORK IN PROGRESS** 
+	**WORK IN PROGRESS**
 -->
-### 1.0.4 (2023-05-09)
-* (chaozmc) changed github workflow config
-* (chaozmc) push version
-
-### 1.0.2 (2023-05-09) 
+### 1.0.2 (2023-05-09)
 * (chaozmc) Added missing translations
 * (chaozmc) Updated Copyright Year
 * (chaozmc) Added .releaseconfig.json for release-script
+* (chaozmc) changed github workflow config
 
 ### 1.0.1 (2023-01-21)
 * (chaozmc) Fixed extensive object creation when using a wrong password (fixes Issue #18)
@@ -60,6 +57,9 @@ The adapter maintains the connected state, even there's no real permanent connec
 ### 0.3.0 (2023-01-15)
 * (chaozmc) Changed Adapter Type to more suitable climate-control instead of communication
 * (chaozmc) Altered query URL for inital scan to use single ?-symbol instead of double
+
+### 0.2.5 (2022-11-18) 
+* (chaozmc) Removed unnecessary const
 
 ### **0.0.3**
 * (chaozmc) code cleanup, trigger for update & rescan

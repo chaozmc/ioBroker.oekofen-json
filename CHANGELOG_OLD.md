@@ -1,7 +1,4 @@
 # Older changes
-## 0.2.5 (2022-11-18) 
-* (chaozmc) Removed unnecessary const
-
 ## 0.2.4 (2022-10-31) 
 * (chaozmc) changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup
 
