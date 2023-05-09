@@ -40,6 +40,9 @@ The adapter maintains the connected state, even there's no real permanent connec
 	Placeholder for the next version (at the beginning of the line):
 	**WORK IN PROGRESS**
 -->
+### 1.0.3 (2023-05-09)
+* (chaozmc) Bump version
+
 ### 1.0.2 (2023-05-09)
 * (chaozmc) Added missing translations
 * (chaozmc) Updated Copyright Year
@@ -57,9 +60,6 @@ The adapter maintains the connected state, even there's no real permanent connec
 ### 0.3.0 (2023-01-15)
 * (chaozmc) Changed Adapter Type to more suitable climate-control instead of communication
 * (chaozmc) Altered query URL for inital scan to use single ?-symbol instead of double
-
-### 0.2.5 (2022-11-18) 
-* (chaozmc) Removed unnecessary const
 
 ### **0.0.3**
 * (chaozmc) code cleanup, trigger for update & rescan
