@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "oekofen-json",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "news": {
+      "1.0.3": {
+        "en": "changed github workflow config\npush version",
+        "de": "github workflow config\ndruckversion",
+        "ru": "измененный github workflow config\npush версия",
+        "pt": "mudou o fluxo de trabalho do github\nversão push",
+        "nl": "veranderde github workflow configuur\nvertaling:",
+        "fr": "config de flux de travail github changé\npush version",
+        "it": "modificato flusso di lavoro github configurazione\nversione push",
+        "es": "cambio de configuración de flujo de trabajo de github\nversión push",
+        "pl": "zmienił githubowy przepływ pracy\nwersja push",
+        "uk": "змінено налаштування github\nзавантажити плагін",
+        "zh-cn": "github 工作流程变化\n推 稿"
+      },
       "1.0.2": {
         "en": "Added missing translations\nUpdated Copyright Year\nAdded .releaseconfig.json for release-script",
         "de": "Fehlende Übersetzungen hinzugefügt\nAktualisierung des Urheberrechtsjahres\nReleaseconfig.json hinzugefügt für release-script",
@@ -80,19 +93,6 @@
         "pl": "zmienił zachowanie pętli, aby użyć pętli zamiast Each, aby uniknąć równoległego tworzenia zbyt wielu obiektów na początku",
         "uk": "змінена петля поведінка використовувати для...петля замість того, щоб уникнути паралельного створення занадто багато об'єктів при запуску",
         "zh-cn": "改变使用费的诱导行为,而不是为了避免在开工时同时制造过多的物体。"
-      },
-      "0.2.3": {
-        "en": "changed initialScan function to use createObjectNotExistsAsync instead",
-        "de": "geänderter Anfang Scan-Funktion zu verwenden erstellen ObjectNotExistsAsync statt",
-        "ru": "измененный начальный Функция сканирования для использования создать ОбъектNotExistsAsync вместо",
-        "pt": "inicial alterada Função de digitalização para usar criar ObjectNotExistsAsync em vez",
-        "nl": "veranderde Scanfuncties gebruiken creatie Vertaling:",
-        "fr": "changement initial Fonction Scan d'utilisation créer ObjectNotExistsAsync à la place",
-        "it": "cambiato iniziale Funzione di scansione per utilizzare ObjectNotExistsAsync",
-        "es": "cambios iniciales Función de exploración para utilizar crear ObjectNotExistsAsync en su lugar",
-        "pl": "zmienić Skandalowa funkcja służąca do tworzenia konstrukcji ObjectExistsAsync",
-        "uk": "зміна початкового Функція сканування для створення Об'єктNotExistsAsync замість",
-        "zh-cn": "初步变化 Scan 创建使用功能 反对"
       }
     },
     "titleLang": {
