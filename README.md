@@ -40,7 +40,7 @@ The adapter maintains the connected state, even there's no real permanent connec
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS** 
 -->
-### 1.0.3 (2023-05-09)
+### 1.0.4 (2023-05-09)
 * (chaozmc) changed github workflow config
 * (chaozmc) push version
 

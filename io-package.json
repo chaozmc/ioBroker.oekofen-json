@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "oekofen-json",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "news": {
+      "1.0.4": {
+        "en": "changed github workflow config\npush version",
+        "de": "github workflow config\ndruckversion",
+        "ru": "измененный github workflow config\npush версия",
+        "pt": "mudou o fluxo de trabalho do github\nversão push",
+        "nl": "veranderde github workflow configuur\nvertaling:",
+        "fr": "config de flux de travail github changé\npush version",
+        "it": "modificato flusso di lavoro github configurazione\nversione push",
+        "es": "cambio de configuración de flujo de trabajo de github\nversión push",
+        "pl": "zmienił githubowy przepływ pracy\nwersja push",
+        "uk": "змінено налаштування github\nзавантажити плагін",
+        "zh-cn": "github 工作流程变化\n推 稿"
+      },
       "1.0.3": {
         "en": "changed github workflow config\npush version",
         "de": "github workflow config\ndruckversion",
@@ -80,19 +93,6 @@
         "pl": "Przewiduje się niepotrzebny stan",
         "uk": "Видалено непотрібний конст",
         "zh-cn": "消除不必要的燃烧"
-      },
-      "0.2.4": {
-        "en": "changed loop behaviour to use a for...of loop instead of forEach to avoid parallel creation of too many objects at startup",
-        "de": "geändertes Schleifenverhalten, um eine für...of-Schleife anstelle von forEach zu verwenden, um parallele Erstellung von zu vielen Objekten beim Start zu vermeiden",
-        "ru": "измененное поведение цикла, чтобы использовать для ... цикл вместо forEach, чтобы избежать параллельного создания слишком много объектов при запуске",
-        "pt": "comportamento de loop alterado para usar um para... de loop em vez de para Cada um para evitar a criação paralela de muitos objetos na inicialização",
-        "nl": "gedraag je om een lus te gebruiken in plaats van te voorzien om parallelle creatie te vermijden van te veel objecten bij de startup",
-        "fr": "changement de comportement de boucle pour utiliser un for... of loop au lieu de forEach pour éviter la création parallèle de trop d'objets au démarrage",
-        "it": "cambiamento del comportamento del loop per usare un for...of loop invece di forEach per evitare la creazione parallela di troppi oggetti all'avvio",
-        "es": "cambio de comportamiento de bucle para usar un... de bucle en lugar de paraCada para evitar la creación paralela de demasiados objetos al inicio",
-        "pl": "zmienił zachowanie pętli, aby użyć pętli zamiast Each, aby uniknąć równoległego tworzenia zbyt wielu obiektów na początku",
-        "uk": "змінена петля поведінка використовувати для...петля замість того, щоб уникнути паралельного створення занадто багато об'єктів при запуску",
-        "zh-cn": "改变使用费的诱导行为,而不是为了避免在开工时同时制造过多的物体。"
       }
     },
     "titleLang": {
