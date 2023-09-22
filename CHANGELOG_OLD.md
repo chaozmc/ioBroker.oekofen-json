@@ -1,4 +1,8 @@
 # Older changes
+## 0.3.0 (2023-01-15)
+* (chaozmc) Changed Adapter Type to more suitable climate-control instead of communication
+* (chaozmc) Altered query URL for inital scan to use single ?-symbol instead of double
+
 ## 0.2.5 (2022-11-18) 
 * (chaozmc) Removed unnecessary const
 
