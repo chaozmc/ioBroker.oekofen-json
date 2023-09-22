@@ -40,6 +40,13 @@ The adapter maintains the connected state, even there's no real permanent connec
 	Placeholder for the next version (at the beginning of the line):
 	**WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (chaozmc) Removed Node 16.x from Test-and-release (fix Issue #19)
+* (chaozmc) updated dependencies
+* (chaozmc) updated protobufjs and google-gax
+* (chaozmc) updated word-wrap
+
 ### 1.0.3 (2023-05-09)
 * (chaozmc) Bump version
 
