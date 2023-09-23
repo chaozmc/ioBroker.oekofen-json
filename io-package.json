@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "oekofen-json",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "news": {
+      "1.0.5": {
+        "en": "set min node version to 18.x (merge pull request #23)",
+        "de": "min-knoten-version auf 18.x setzen (merge pull request #23)",
+        "ru": "установить min node версии до 18.x (слияние pull request #23)",
+        "pt": "set min node versão para 18.x (merge pull request #23)",
+        "nl": "zet min nodeversie op 18.x",
+        "fr": "set min node version to 18.x (merge pull request #23)",
+        "it": "set min nodo versione a 18.x (chiusura pull richiesta #23)",
+        "es": "set min node version to 18.x (merge pull request #23)",
+        "pl": "wersja z węzłem 18.x (ang.)",
+        "uk": "встановити min версія вузла до 18.x (запит на протяг #23)",
+        "zh-cn": "为18.0%的未用版本(将请求编号:第23号)"
+      },
       "1.0.4": {
         "en": "changed github workflow config\npush version",
         "de": "github workflow config\ndruckversion",
@@ -80,19 +93,6 @@
         "pl": "Changed Adapter Typ do bardziej odpowiedniego klimatu zamiast komunikacji\nAltered query URL for inital scan to use a single ?-symbol zamiast podwójnego skanowania",
         "uk": "Змінений адаптер Тип більш підходящого клімат-контролю замість спілкування\nВимірювана URL-адреса запиту на вхідний сканування для використання одного ?-symbol замість подвійного",
         "zh-cn": "变化 更适合气候的控制而不是通信的类型\nAltered queryURL for inital扫描n to use单一 ?-symbol 而不是双重。"
-      },
-      "0.2.5": {
-        "en": "Removed unnecessary const",
-        "de": "Entfernen unnötiger Konst",
-        "ru": "Удалены ненужные конст",
-        "pt": "Retirada desnecessária const",
-        "nl": "Verwijder onnodige consistent",
-        "fr": "Conste inutile enlevée",
-        "it": "Rimossa inutile const",
-        "es": "Quitar el const innecesario",
-        "pl": "Przewiduje się niepotrzebny stan",
-        "uk": "Видалено непотрібний конст",
-        "zh-cn": "消除不必要的燃烧"
       }
     },
     "titleLang": {
