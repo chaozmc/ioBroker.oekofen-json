@@ -16,6 +16,9 @@
     "type": "git",
     "url": "https://github.com/chaozmc/ioBroker.oekofen-json"
   },
+   "engines": {
+    "node": ">= 18"
+  },
   "dependencies": {
     "@iobroker/adapter-core": "^2.6.0",
     "axios": "^0.27.2"
