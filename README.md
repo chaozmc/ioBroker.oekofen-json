@@ -40,6 +40,9 @@ The adapter maintains the connected state, even there's no real permanent connec
 	Placeholder for the next version (at the beginning of the line):
 	**WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (chaozmc) set min node version to 18.x (merge pull request #23)
+
 ### 1.0.4 (2023-09-22)
 * (chaozmc) Removed Node 16.x from Test-and-release (fix Issue #19)
 * (chaozmc) updated dependencies
