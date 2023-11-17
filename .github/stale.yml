@@ -6,6 +6,11 @@ daysUntilClose: 5
 exemptLabels:
   - pinned
   - security
+exempt-issue-labels:
+  - feature
+exempt-pr-labels:
+  - pinned
+  - security
 # Label to use when marking an issue as stale
 staleLabel: stale
 # Comment to post when marking an issue as stale. Set to `false` to disable
