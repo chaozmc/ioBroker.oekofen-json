@@ -8,6 +8,7 @@ exemptLabels:
   - security
 exempt-issue-labels:
   - feature
+  - enhancement
 exempt-pr-labels:
   - pinned
   - security
